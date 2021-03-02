@@ -23,6 +23,13 @@ namespace TwitterTrends
         public MainWindow()
         {
             InitializeComponent();
+            ///Коммент
+            ///Коммент
+            ///Коммент
+            ///Коммент
+            ///Коммент
+            ///Коммент
+            ///Коммент
         }
     }
 }
