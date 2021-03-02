@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button Content="Button" HorizontalAlignment="Left" Height="110" Margin="210,105,0,0" VerticalAlignment="Top" Width="250"/>
+        <DatePicker HorizontalAlignment="Left" Height="95" Margin="540,235,0,0" VerticalAlignment="Top" Width="155"/>
+
     </Grid>
 </Window>
