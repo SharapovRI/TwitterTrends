@@ -8,7 +8,7 @@ namespace TwitterTrends.Models
 {
     public class State
     {
-        public string Name;
-        public List<Polygon> polygons = new List<Polygon>();
+        public string StateId { get; set; }
+        public List<Polygon> Polygons = new List<Polygon>();
     }
 }

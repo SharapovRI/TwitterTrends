@@ -10,9 +10,9 @@ namespace TwitterTrends.Models
     {
         public Polygon(string StateName)
         {
-            this.StateName = StateName;
+            this.StateId = StateName;
         }
-        public string StateName;
+        public string StateId;
         public List<Coordinate> Coordinates = new List<Coordinate>();
     }
 }

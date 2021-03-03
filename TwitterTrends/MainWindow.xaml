@@ -6,11 +6,9 @@
         xmlns:local="clr-namespace:TwitterTrends"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Height="110" Margin="210,105,0,0" VerticalAlignment="Top" Width="250"/>
-        <DatePicker HorizontalAlignment="Left" Height="95" Margin="535,148,0,0" VerticalAlignment="Top" Width="155"/>
-        <Frame Content="Frame" HorizontalAlignment="Left" Height="55" Margin="210,265,0,0" VerticalAlignment="Top" Width="250"/>
-        <Grid HorizontalAlignment="Left" Height="55" Margin="580,290,0,0" VerticalAlignment="Top" Width="135"/>
+    <ScrollViewer HorizontalScrollBarVisibility="Visible">
+        <Grid x:Name="gridMap">
 
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </Window>

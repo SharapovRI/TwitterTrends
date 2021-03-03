@@ -8,8 +8,14 @@ namespace TwitterTrends.Models
 {
     public class Twitt
     {
-        Coordinate TwittCoordinate;
-        DateTime Time;
+        public Twitt(Coordinate coordinate, DateTime dateTime, string text)
+        {
+            TwittCoordinate = coordinate;
+            DateTime = dateTime;
+            Text = text;
+        }
+        public Coordinate TwittCoordinate;
+        DateTime DateTime;
         string Text;
     }
 }

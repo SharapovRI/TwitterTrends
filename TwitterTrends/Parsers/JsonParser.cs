@@ -20,12 +20,12 @@ namespace TwitterTrends.Parsers
             foreach (var st in jsonStates)
             {
                 State state = new State();
-                state.Name = st.Key;
+                state.StateId = st.Key;
                 foreach (var polygonsList in st.Value)
                 {
                     foreach (var plgn in polygonsList)
                     {
-                        Polygon polygon = new Polygon(state.Name);
+                        Polygon polygon = new Polygon(state.StateId);
                         foreach (var crdn in plgn)
                         {
                             float x = float.Parse(crdn.First.ToString().Replace('.', ','));
@@ -33,7 +33,7 @@ namespace TwitterTrends.Parsers
                             Coordinate coordinate = new Coordinate(x, y);
                             polygon.Coordinates.Add(coordinate);
                         }
-                        state.polygons.Add(polygon);
+                        state.Polygons.Add(polygon);
                     }
                 }
                 states.Add(state);
