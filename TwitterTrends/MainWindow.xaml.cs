@@ -30,11 +30,10 @@ namespace TwitterTrends
         }
 
         public void DrawMap()
-        {
-            
+        {            
             foreach(var state in states)
-            {
-                foreach(var polygon4 in state.Polygons)
+            {                
+                foreach (var polygon4 in state.Polygons)
                 {
                     System.Windows.Shapes.Polygon plg = new System.Windows.Shapes.Polygon();                    
                     foreach(var coordinate in polygon4.Coordinates)
@@ -43,8 +42,8 @@ namespace TwitterTrends
                     }
                     plg.Stroke = Brushes.Black;
                     plg.Fill = Brushes.Gray;
-                    gridMap.Children.Add(plg);
-                }
+                    gridMap.Children.Add(plg);                                    
+                }                
             }            
         }         
     }

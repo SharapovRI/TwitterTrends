@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:TwitterTrends"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <ScrollViewer HorizontalScrollBarVisibility="Visible">
-        <Grid x:Name="gridMap">
+    <!--<ScrollViewer HorizontalScrollBarVisibility="Visible">-->
+        <Viewbox Stretch="Uniform">
+            <Grid x:Name="gridMap">
 
-        </Grid>
-    </ScrollViewer>
+             </Grid>
+        </Viewbox>
+    <!--</ScrollViewer>-->
 </Window>
