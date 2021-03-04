@@ -11,17 +11,23 @@ namespace TwitterTrends
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    {        
         private const string JSON_PATH = @"../../Files/states.json";
         private List<State> states;
+        private const float XCOMPRESSION = 14;
+        private const float YCOMPRESSION = -20;
+        private const float XOFFSET = 2500;
+        private const float YOFFSET = 1500;
+
+
+
         public MainWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
             states = JsonParser.ParseStates(JSON_PATH);
             DrawMap();
         }
-
-
 
         public void DrawMap()
         {
@@ -33,10 +39,10 @@ namespace TwitterTrends
                     System.Windows.Shapes.Polygon plg = new System.Windows.Shapes.Polygon();                    
                     foreach(var coordinate in polygon4.Coordinates)
                     {
-                        plg.Points.Add(new Point(coordinate.X*(10)+2000, coordinate.Y*(-10)+1000));
+                        plg.Points.Add(new Point(coordinate.X* XCOMPRESSION + XOFFSET, coordinate.Y* YCOMPRESSION + YOFFSET));
                     }
-                    plg.Stroke = Brushes.Red;
-                    plg.Fill = Brushes.Black;
+                    plg.Stroke = Brushes.Black;
+                    plg.Fill = Brushes.Gray;
                     gridMap.Children.Add(plg);
                 }
             }            
