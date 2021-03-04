@@ -25,84 +25,21 @@ namespace TwitterTrends
 
         public void DrawMap()
         {
-            foreach (var state in states)
+            
+            foreach(var state in states)
             {
-                foreach (var polygon in state.Polygons)
+                foreach(var polygon4 in state.Polygons)
                 {
-                    //каждый полигон будет представляться объектом Path.
-                    Path polygonPath = new Path();
-                    polygonPath.Fill = Brushes.Black;
-
-                    //в свою очередь объект Path берет данные из объекта PathGeometry
-                    PathGeometry polygonPathGeometry = new PathGeometry();
-                    polygonPath.Data = polygonPathGeometry;
-
-
-                    PathFigure polygonPathFigure = new PathFigure();
-                    polygonPathFigure.StartPoint = new Point(polygon.Coordinates[polygon.Coordinates.Count - 1].X * 5 * 1.4 + 2900, polygon.Coordinates[polygon.Coordinates.Count - 1].Y * 5 * -2 + 1500);
-
-                    PolyLineSegment polygonPolyLineSegment = new PolyLineSegment();
-
-
-                    for (int i = 0; i < polygon.Coordinates.Count; i++)
+                    System.Windows.Shapes.Polygon plg = new System.Windows.Shapes.Polygon();                    
+                    foreach(var coordinate in polygon4.Coordinates)
                     {
-                        polygonPolyLineSegment.Points.Add(new Point(polygon.Coordinates[i].X * 5 * 1.4 + 2900, polygon.Coordinates[i].Y * 5 * -2 + 1500));
+                        plg.Points.Add(new Point(coordinate.X*(10)+2000, coordinate.Y*(-10)+1000));
                     }
-
-                    polygonPathFigure.Segments.Add(polygonPolyLineSegment);
-                    polygonPathGeometry.Figures.Add(polygonPathFigure);
-                    gridMap.Children.Add(polygonPath);
+                    plg.Stroke = Brushes.Red;
+                    plg.Fill = Brushes.Black;
+                    gridMap.Children.Add(plg);
                 }
-            }
-        }
-
-        private void DrawMap1()
-        {
-            foreach (var state in states)
-            {
-                foreach (var polygon in state.Polygons)
-                {
-                    //каждый полигон будет представляться объектом Path.
-                    Path polygonPath = new Path();
-                    polygonPath.Fill = Brushes.Black;
-
-                    //в свою очередь объект Path берет данные из объекта PathGeometry
-                    PathGeometry polygonPathGeometry = new PathGeometry();
-                    polygonPath.Data = polygonPathGeometry;
-
-
-                    PathFigure polygonPathFigure = new PathFigure();
-                    polygonPathFigure.StartPoint = new Point(polygon.Coordinates[polygon.Coordinates.Count - 1].X * 5 * 1.4 + 2900, polygon.Coordinates[polygon.Coordinates.Count - 1].Y * 5 * -2 + 1500);
-
-                    PolyLineSegment polygonPolyLineSegment = new PolyLineSegment();
-
-
-                    for (int i = 0; i < polygon.Coordinates.Count; i++)
-                    {
-                        polygonPolyLineSegment.Points.Add(new Point(polygon.Coordinates[i].X * 5 * 1.4 + 2900, polygon.Coordinates[i].Y * 5 * -2 + 1500));
-                    }
-
-                    polygonPathFigure.Segments.Add(polygonPolyLineSegment);
-                    polygonPathGeometry.Figures.Add(polygonPathFigure);
-                    gridMap.Children.Add(polygonPath);
-                }
-            }
-            //System.Windows.Shapes.Polygon p = new System.Windows.Shapes.Polygon();
-            //foreach (var state in states)
-            //{
-            //    foreach (var polygon in state.Polygons)
-            //    {
-            //        System.Windows.Shapes.Polygon p = new System.Windows.Shapes.Polygon();
-            //        p.Fill = Brushes.Red;
-            //        p.Stroke = Brushes.Blue;
-            //        p.StrokeThickness = 4;
-            //        foreach (var coordinate in polygon.Coordinates)
-            //        {
-            //            p.Points.Add(new Point(coordinate.X * 5 * 1.4 + 2900, coordinate.Y * 5 * -2 + 1500));
-            //        }
-            //        gridMap.Children.Add(p);
-            //    }
-            //}
-        }
+            }            
+        }         
     }
 }

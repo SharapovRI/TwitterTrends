@@ -10,8 +10,8 @@ namespace TwitterTrends.Models
     {
         public Coordinate(float x, float y)
         {
-            X = x;
-            Y = y;
+            this.x = x;
+            this.y = y;
         }
         private float x;
         private float y;
