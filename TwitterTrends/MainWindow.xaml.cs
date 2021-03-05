@@ -27,6 +27,7 @@ namespace TwitterTrends
             this.WindowState = WindowState.Maximized;
             states = JsonParser.ParseStates(JSON_PATH);
             DrawMap();
+            //ggg
         }
 
         public void DrawMap()
