@@ -13,6 +13,7 @@ namespace TwitterTrends
     public partial class MainWindow : Window
     {        
         private const string JSON_PATH = @"../../Files/states.json";
+        private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";
         private List<State> states;
         private const float XCOMPRESSION = 14;
         private const float YCOMPRESSION = -20;
@@ -26,6 +27,7 @@ namespace TwitterTrends
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
             states = JsonParser.ParseStates(JSON_PATH);
+            Dictionary<string, float> d = SantimentsParser.ParseWords(SENTIMENTS_PATH);
             DrawMap();
         }
 
