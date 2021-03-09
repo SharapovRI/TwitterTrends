@@ -37,11 +37,11 @@ namespace TwitterTrends
             Regex regex = new Regex(pattern);
             MatchCollection matches = regex.Matches(s);*/
             List<Twitt> twitts = new List<Twitt>();
-            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "Aladin qwe gulyzt'"));
-            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "Aladin idet gulyzt'"));
-            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "idet Aladin gulyzt'"));
+            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "Aladin qwe abatable"));
+            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "a great deal gulyzt'"));
+            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "qwqr abruptly-pinnate leaf qwqwrqrq"));
 
-            Searching searching = new Searching(twitts, new System.Collections.Hashtable());
+            Searching searching = new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH));
         }
 
         public void DrawMap()

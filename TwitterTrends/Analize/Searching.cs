@@ -21,16 +21,16 @@ namespace TwitterTrends.Analize
         {
             this.twitts = twitts;
             this.hashtable = hashtable;
-            hashtableValue.Add("Aladin", 60);
+            /*hashtableValue.Add("Aladin", 60);
             hashtableValue.Add("Aladin qwe", 23423);
             hashtable.Add("A", hashtableValue);
             Hashtable hashtableValue2 = new Hashtable();
             hashtableValue2.Add("qwe", 13);
-            hashtable.Add("q", hashtableValue2);
+            hashtable.Add("q", hashtableValue2);*/
 
             foreach (var item in twitts)
             {
-                CheckSame(item.Text);
+                CheckSame(item.Text.ToLower());
             }
         }
 
@@ -42,11 +42,16 @@ namespace TwitterTrends.Analize
                                                                   //ни принадлежности твитта штату, чтобы доделать
             while (text.Length > 0)
             {                                                                                               //ЮЛИК ИЛЬЯ АЛООООООООООООООООООО
-                string pat = @"\S\w*";
+                string pat = @"(\a\s)?\w+(\-\w+)?";
 
                 Regex regex = new Regex(pat);
                 Match match = regex.Match(text);
                 comp = match.Value;
+
+                if (string.IsNullOrWhiteSpace(comp))
+                {
+                    break;
+                }
 
                 if (hashtable.ContainsKey(comp[0].ToString()))
                 {
@@ -64,22 +69,22 @@ namespace TwitterTrends.Analize
         private float OQIWje(string comp, string text, out string lenght)
         {
             Hashtable variables;
+            Hashtable variables2;
             string mostClose = string.Empty;
-            string pat = @"\w*";
+            string pat = @"(\w+)(\-\w+)?";
             lenght = comp;
 
             hashtableValue = (Hashtable)hashtable[comp[0].ToString()];
             variables = new Hashtable(hashtableValue);
+            variables2 = new Hashtable(hashtableValue);
 
             while (variables.Count > 0)
             {
-                //variables.Sort();
-
-                foreach (var item in hashtableValue.Keys)
+                foreach (var item in variables.Keys)
                 {
                     if (item.ToString().IndexOf(comp) != 0)
                     {
-                        variables.Remove(item);
+                        variables2.Remove(item);
                     }
                     if (item.ToString() == comp)
                     {
@@ -87,21 +92,25 @@ namespace TwitterTrends.Analize
                     }
                 }
 
-                if (variables.Count == 0)
+                variables = new Hashtable(variables2);
+
+                if (variables.Count == 0 || mostClose == text.Trim())
                 {
                     break;
                 }
 
-                //mostClose = variables[0];
-
-                pat = pat + @"\s(\a\s)?\w*";
+                pat = pat + @"\s(\a\s)?(\w+)(\-\w+)?";
 
                 Regex regex = new Regex(pat);
                 Match match = regex.Match(text);
                 comp = match.Value;
             }
 
-            lenght = mostClose;
+            if (!string.IsNullOrWhiteSpace(mostClose))
+            {
+                lenght = mostClose;
+            }
+
             return Convert.ToSingle(hashtableValue[mostClose]);
         }
     }
