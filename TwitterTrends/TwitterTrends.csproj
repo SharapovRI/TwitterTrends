@@ -75,10 +75,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Coordinate.cs" />
+    <Compile Include="Models\Map.cs" />
     <Compile Include="Models\Polygon.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\Twitt.cs" />
     <Compile Include="Parsers\JsonParser.cs" />
+    <Compile Include="Parsers\SantimentsParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -96,6 +98,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Files\sentiments.csv" />
     <None Include="Files\states.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
