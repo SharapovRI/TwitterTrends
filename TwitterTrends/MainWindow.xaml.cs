@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -27,6 +28,12 @@ namespace TwitterTrends
             this.WindowState = WindowState.Maximized;
             states = JsonParser.ParseStates(JSON_PATH);
             DrawMap();
+
+            /*string s = "Бык тупогуб, тупогубенький бычок, у быка губа бела была тупа";
+            string pat = @"\w*";
+            string pattern = pat + @"\S";
+            Regex regex = new Regex(pattern);
+            MatchCollection matches = regex.Matches(s);*/
         }
 
         public void DrawMap()
