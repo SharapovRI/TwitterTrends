@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using TwitterTrends.Analize;
 using TwitterTrends.Models;
 using TwitterTrends.Parsers;
 
@@ -25,15 +26,21 @@ namespace TwitterTrends
         public MainWindow()
         {
             InitializeComponent();
-            this.WindowState = WindowState.Maximized;
+            /*this.WindowState = WindowState.Maximized;
             states = JsonParser.ParseStates(JSON_PATH);
-            DrawMap();
+            DrawMap();*/
 
             /*string s = "Бык тупогуб, тупогубенький бычок, у быка губа бела была тупа";
             string pat = @"\w*";
             string pattern = pat + @"\S";
             Regex regex = new Regex(pattern);
             MatchCollection matches = regex.Matches(s);*/
+            List<Twitt> twitts = new List<Twitt>();
+            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "Aladin qwe gulyzt'"));
+            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "Aladin idet gulyzt'"));
+            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "idet Aladin gulyzt'"));
+
+            Searching searching = new Searching(twitts, new System.Collections.Hashtable());
         }
 
         public void DrawMap()
