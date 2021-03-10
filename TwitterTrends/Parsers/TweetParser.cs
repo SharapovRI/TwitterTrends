@@ -22,11 +22,15 @@ namespace TwitterTrends.Parsers
             {
                 while ((line = reader.ReadLine()) != null)
                 {
+                    if (string.IsNullOrWhiteSpace(line) || line[0] != '[') continue;
                     var regex = new Regex(@"\d\t");
                     MatchCollection match = locationRegex.Matches(line);
                     Match match1 = dateRegex.Match(line);
                     Match match2 = textRegex.Match(line);
-                    tweet.Add(new Twitt(GetCoordinate(match), DateTime.Parse(match1.Value), GetMessage(match2, regex)));
+                    if (match.Count == 2)
+                    {
+                        tweet.Add(new Twitt(GetCoordinate(match), DateTime.Parse(match1.Value), GetMessage(match2, regex)));
+                    }
                 }
             }
             return tweet;
