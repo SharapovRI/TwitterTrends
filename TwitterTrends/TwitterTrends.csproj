@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Program.cs" />
+    <Compile Include="Tweetparcer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -93,6 +95,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="movie.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="football.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="family.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

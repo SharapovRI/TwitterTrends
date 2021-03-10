@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Универ\\4 семестр\\Объектно-ориентированные технологии программирования и стандарты проектирования\\TwitterTrends\\parse\\parse\\parse.csproj": {}
+    "D:\\Универ\\4 семестр\\Объектно-ориентированные технологии программирования и стандарты проектирования\\TwitterTrends\\parse\\parse\\parse.csproj": {}
   },
   "projects": {
-    "d:\\Универ\\4 семестр\\Объектно-ориентированные технологии программирования и стандарты проектирования\\TwitterTrends\\parse\\parse\\parse.csproj": {
+    "D:\\Универ\\4 семестр\\Объектно-ориентированные технологии программирования и стандарты проектирования\\TwitterTrends\\parse\\parse\\parse.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Универ\\4 семестр\\Объектно-ориентированные технологии программирования и стандарты проектирования\\TwitterTrends\\parse\\parse\\parse.csproj",
+        "projectUniqueName": "D:\\Универ\\4 семестр\\Объектно-ориентированные технологии программирования и стандарты проектирования\\TwitterTrends\\parse\\parse\\parse.csproj",
         "projectName": "parse",
-        "projectPath": "d:\\Универ\\4 семестр\\Объектно-ориентированные технологии программирования и стандарты проектирования\\TwitterTrends\\parse\\parse\\parse.csproj",
+        "projectPath": "D:\\Универ\\4 семестр\\Объектно-ориентированные технологии программирования и стандарты проектирования\\TwitterTrends\\parse\\parse\\parse.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "d:\\Универ\\4 семестр\\Объектно-ориентированные технологии программирования и стандарты проектирования\\TwitterTrends\\parse\\parse\\obj\\",
+        "outputPath": "D:\\Универ\\4 семестр\\Объектно-ориентированные технологии программирования и стандарты проектирования\\TwitterTrends\\parse\\parse\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
