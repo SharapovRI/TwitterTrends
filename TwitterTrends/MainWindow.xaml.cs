@@ -47,6 +47,20 @@ namespace TwitterTrends
                     gridMap.Children.Add(plg);                                    
                 }                
             }            
-        }         
+        }
+
+        private void ZoomViewbox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {                
+                stMap.ScaleX += 0.1;
+                stMap.ScaleY += 0.1;
+            }
+            else
+            {
+                stMap.ScaleX -= 0.1;
+                stMap.ScaleY -= 0.1;
+            }
+        }
     }
 }

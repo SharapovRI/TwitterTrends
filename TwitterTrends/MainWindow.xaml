@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TwitterTrends"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <!--<ScrollViewer HorizontalScrollBarVisibility="Visible">-->
-        <Viewbox Stretch="Uniform">
-            <Grid x:Name="gridMap">
-
-             </Grid>
+        Title="MainWindow" Height="450" Width="800"
+        Background="#56B5FF" >
+    <Viewbox Stretch="Uniform"  Margin="0,0,0,10" x:Name="ZoomViewbox" MouseWheel="ZoomViewbox_MouseWheel" >
+            <Grid x:Name="gridMap" >
+                <Grid.RenderTransform>
+                    <ScaleTransform x:Name="stMap" ScaleX="1" ScaleY="1" CenterX="5" CenterY="5" />
+                </Grid.RenderTransform>
+            </Grid>
         </Viewbox>
-    <!--</ScrollViewer>-->
 </Window>
