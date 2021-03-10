@@ -81,6 +81,7 @@
     <Compile Include="Models\Twitt.cs" />
     <Compile Include="Parsers\JsonParser.cs" />
     <Compile Include="Parsers\SantimentsParser.cs" />
+    <Compile Include="Parsers\TweetParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
