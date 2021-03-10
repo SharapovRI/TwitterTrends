@@ -110,20 +110,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Files\cali_tweets2014.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Files\family_tweets2014.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Files\football_tweets2014.txt" />
-    <Resource Include="Files\high_school_tweets2014.txt" />
-    <Resource Include="Files\movie_tweets2014.txt" />
-    <Resource Include="Files\shopping_tweets2014.txt" />
-    <Resource Include="Files\snow_tweets2014.txt" />
-    <Resource Include="Files\texas_tweets2014.txt" />
-    <Resource Include="Files\weekend_tweets2014.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
