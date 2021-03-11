@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using GMap.NET;
+
+using GMap.NET.WindowsPresentation;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -29,6 +32,8 @@ namespace TwitterTrends
             states = JsonParser.ParseStates(JSON_PATH);
             Dictionary<string, float> d = SantimentsParser.ParseWords(SENTIMENTS_PATH);
             DrawMap();
+            
+            
         }
 
         public void DrawMap()
