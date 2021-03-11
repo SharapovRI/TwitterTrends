@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <!--<ScrollViewer HorizontalScrollBarVisibility="Visible">-->
-        <Viewbox Stretch="Uniform">
+        <Viewbox Stretch="Uniform" Margin="0,0,0,30">
             <Grid x:Name="gridMap">
 
              </Grid>
