@@ -9,7 +9,6 @@ namespace TwitterTrends.Models
 	class Map
 	{
         static List<State> states = new List<State>();
-
         public bool isInside(List<Coordinate> points, Coordinate p)
         {
             int count = points.Count;
