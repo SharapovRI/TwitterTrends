@@ -8,6 +8,7 @@ namespace TwitterTrends.Models
 {
 	class Map
 	{
+        static List<State> states = new List<State>();
 
         public bool isInside(List<Coordinate> points, Coordinate p)
         {
@@ -28,6 +29,11 @@ namespace TwitterTrends.Models
                 j = i;
             }
             return res;
+        }
+
+        public static void GiveStates(List<State> stateList)
+        {
+            states = stateList;
         }
     }
 

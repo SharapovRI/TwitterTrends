@@ -30,9 +30,9 @@ namespace TwitterTrends
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
             states = JsonParser.ParseStates(JSON_PATH);
+            Map.GiveStates(states);
             Dictionary<string, float> d = SantimentsParser.ParseWords(SENTIMENTS_PATH);
-            DrawMap();
-            
+            DrawMap();           
             
         }
 
