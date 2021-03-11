@@ -11,37 +11,31 @@ namespace TwitterTrends.Analize
 {
     class Searching
     {
-        Dictionary<State, float> sentim = new Dictionary<State, float>();
-        Hashtable hashtable = new Hashtable();
-        Hashtable hashtableValue = new Hashtable();
+        //Dictionary<State, float> sentim = new Dictionary<State, float>();
+        Hashtable hashtable;
+        Hashtable hashtableValue;
 
-        List<Twitt> twitts = new List<Twitt>();
+        List<Twitt> twitts;
 
         public Searching(List<Twitt> twitts, Hashtable hashtable)
         {
             this.twitts = twitts;
             this.hashtable = hashtable;
-            /*hashtableValue.Add("Aladin", 60);
-            hashtableValue.Add("Aladin qwe", 23423);
-            hashtable.Add("A", hashtableValue);
-            Hashtable hashtableValue2 = new Hashtable();
-            hashtableValue2.Add("qwe", 13);
-            hashtable.Add("q", hashtableValue2);*/
 
             foreach (var item in twitts)
             {
-                CheckSame(item.Text.ToLower());
+                item.weight = CheckSame(item.Text.ToLower());
             }
         }
 
-        private void CheckSame(string text)
+        private float CheckSame(string text)
         {
             string comp;
-            float weight = 0;                                     ///////вот эта вещь, это вес твитта.   Она должна передаваться и записываться в штат соответственно
-                                                                  // так вот проблема, у меня нет ни парсера чтобы проверить работу
-                                                                  //ни принадлежности твитта штату, чтобы доделать
+            float weight = 0;                                    
+                                                                 
+                                                                 
             while (text.Length > 0)
-            {                                                                                               //ЮЛИК ИЛЬЯ АЛООООООООООООООООООО
+            {                                                    
                 string pat = @"(\a\s)?\w+(\-\w+)?";
 
                 Regex regex = new Regex(pat);
@@ -53,33 +47,40 @@ namespace TwitterTrends.Analize
                     break;
                 }
 
-                if (hashtable.ContainsKey(comp[0].ToString()))
-                {
+                //if (hashtable.ContainsKey(comp[0].ToString()))
+                //{
                     string key;
                     weight += OQIWje(comp, text, out key);
                     text = text.Remove(0, text.IndexOf(key) + key.Length);
-                }
-                else
-                {
-                    text = text.Remove(0, text.IndexOf(comp) + comp.Length);
-                }
+                //}
+                //else
+                //{
+                    //text = text.Remove(0, text.IndexOf(comp) + comp.Length);
+                //}
             }
+
+            return weight;
         }
 
         private float OQIWje(string comp, string text, out string lenght)
         {
-            Hashtable variables;
-            Hashtable variables2;
+            lenght = comp;
+            if (comp.Length == 1 && comp != "a")
+            {
+                return 0;
+            }
+            //Hashtable variables;
+            //Hashtable variables2;
             string mostClose = string.Empty;
             string pat = @"(\w+)(\-\w+)?";
-            lenght = comp;
 
             hashtableValue = (Hashtable)hashtable[comp[0].ToString()];
-            variables = new Hashtable(hashtableValue);
-            variables2 = new Hashtable(hashtableValue);
+            //variables = new Hashtable(hashtableValue);
+            /*variables2 = new Hashtable(hashtableValue);
 
             while (variables.Count > 0)
             {
+                if (string.IsNullOrWhiteSpace(comp)) return 0;
                 foreach (var item in variables.Keys)
                 {
                     if (item.ToString().IndexOf(comp) != 0)
@@ -111,6 +112,22 @@ namespace TwitterTrends.Analize
                 lenght = mostClose;
             }
 
+            return Convert.ToSingle(hashtableValue[mostClose]);*/
+            if (hashtableValue is null) return 0;
+
+            while(comp.Length > 0 && comp.Length != text.Trim().Length && !string.IsNullOrWhiteSpace(comp))
+            {
+                if (hashtableValue.ContainsKey(comp))
+                {
+                    mostClose = comp;
+                }
+
+                pat += @"\s(\a\s)?(\w+)(\-\w+)?";
+
+                Regex regex = new Regex(pat);
+                Match match = regex.Match(text);
+                comp = match.Value;
+            }
             return Convert.ToSingle(hashtableValue[mostClose]);
         }
     }

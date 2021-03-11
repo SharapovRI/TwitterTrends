@@ -33,22 +33,9 @@ namespace TwitterTrends
             this.WindowState = WindowState.Maximized;
             states = JsonParser.ParseStates(JSON_PATH);
             Map.GiveStates(states);
-            Dictionary<string, float> d = SantimentsParser.ParseWords(SENTIMENTS_PATH);
-            DrawMap();           
-            
-            DrawMap();*/
-
-            /*string s = "Бык тупогуб, тупогубенький бычок, у быка губа бела была тупа";
-            string pat = @"\w*";
-            string pattern = pat + @"\S";
-            Regex regex = new Regex(pattern);
-            MatchCollection matches = regex.Matches(s);*/
-            List<Twitt> twitts = new List<Twitt>();
-            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "Aladin qwe abatable"));
-            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "a great deal gulyzt'"));
-            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "qwqr abruptly-pinnate leaf qwqwrqrq"));
-
+            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/movie_tweets2014.txt");
             Searching searching = new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH));
+            DrawMap();                       
         }
 
         public void DrawMap()

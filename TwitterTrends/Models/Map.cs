@@ -6,11 +6,26 @@ using System.Threading.Tasks;
 
 namespace TwitterTrends.Models
 {
-	class Map
-	{
+    class Map
+    {
         static List<State> states = new List<State>();
 
-        public bool isInside(List<Coordinate> points, Coordinate p)
+        public static string GetState(Coordinate p)
+        {
+            foreach (var item in states)
+            {
+                foreach (var jtem in item.Polygons)
+                {
+                    if (isInside(jtem.Coordinates, p))
+                    {
+                        return item.StateId;
+                    }
+                }
+            }
+            return "UNKNOWN";
+        }
+
+        private static bool isInside(List<Coordinate> points, Coordinate p)
         {
             int count = points.Count;
             if (count < 3) return false;

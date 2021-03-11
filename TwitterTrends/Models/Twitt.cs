@@ -13,9 +13,12 @@ namespace TwitterTrends.Models
             TwittCoordinate = coordinate;
             DateTime = dateTime;
             Text = text;
+            idState = Map.GetState(TwittCoordinate);
         }
         public Coordinate TwittCoordinate;
         DateTime DateTime;
         public string Text;
+        public string idState;
+        public float weight;
     }
 }

@@ -44,7 +44,6 @@ namespace TwitterTrends.Parsers
         {
             CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
             ci.NumberFormat.CurrencyDecimalSeparator = ".";
-            //avarage = double.Parse("0.0", NumberStyles.Any, ci);
             float x = float.Parse(match[0].Value, NumberStyles.Any, ci);
             float y = float.Parse(match[1].Value, NumberStyles.Any, ci);
             Coordinate coordinate = new Coordinate(x, y);
