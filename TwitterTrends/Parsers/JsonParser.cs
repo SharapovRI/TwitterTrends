@@ -28,8 +28,8 @@ namespace TwitterTrends.Parsers
                         Polygon polygon = new Polygon(state.StateId);
                         foreach (var crdn in plgn)
                         {
-                            float x = float.Parse(crdn.First.ToString().Replace('.', ','));
-                            float y = float.Parse(crdn.Last.ToString().Replace('.', ','));
+                            float y = float.Parse(crdn.First.ToString().Replace('.', ','));
+                            float x = float.Parse(crdn.Last.ToString().Replace('.', ','));
                             Coordinate coordinate = new Coordinate(x, y);
                             polygon.Coordinates.Add(coordinate);
                         }

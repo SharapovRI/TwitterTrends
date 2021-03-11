@@ -33,8 +33,8 @@ namespace TwitterTrends
             this.WindowState = WindowState.Maximized;
             states = JsonParser.ParseStates(JSON_PATH);
             Map.GiveStates(states);
-            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/movie_tweets2014.txt");
-            Searching searching = new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH));
+            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/cali_tweets2014.txt");
+            Searching searching = new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH), states);
             DrawMap();                       
         }
 
@@ -47,7 +47,7 @@ namespace TwitterTrends
                     System.Windows.Shapes.Polygon plg = new System.Windows.Shapes.Polygon();                    
                     foreach(var coordinate in polygon4.Coordinates)
                     {
-                        plg.Points.Add(new Point(coordinate.X* XCOMPRESSION + XOFFSET, coordinate.Y* YCOMPRESSION + YOFFSET));
+                        plg.Points.Add(new Point(coordinate.Y* XCOMPRESSION + XOFFSET, coordinate.X* YCOMPRESSION + YOFFSET));
                     }
                     plg.Stroke = Brushes.Black;
                     plg.Fill = Brushes.Gray;

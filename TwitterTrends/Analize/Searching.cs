@@ -11,20 +11,23 @@ namespace TwitterTrends.Analize
 {
     class Searching
     {
-        //Dictionary<State, float> sentim = new Dictionary<State, float>();
         Hashtable hashtable;
         Hashtable hashtableValue;
 
         List<Twitt> twitts;
 
-        public Searching(List<Twitt> twitts, Hashtable hashtable)
+        public Searching(List<Twitt> twitts, Hashtable hashtable, List<State> states)
         {
             this.twitts = twitts;
             this.hashtable = hashtable;
 
             foreach (var item in twitts)
             {
-                item.weight = CheckSame(item.Text.ToLower());
+                var state = states.FindAll(u => u.StateId == item.idState).FirstOrDefault();
+                if (state != null)
+                {
+                    state.weight += CheckSame(item.Text.ToLower());
+                }
             }
         }
 
