@@ -2,9 +2,11 @@
 
 using GMap.NET.WindowsPresentation;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using TwitterTrends.Analize;
 using TwitterTrends.Models;
 using TwitterTrends.Parsers;
 
@@ -34,6 +36,19 @@ namespace TwitterTrends
             Dictionary<string, float> d = SantimentsParser.ParseWords(SENTIMENTS_PATH);
             DrawMap();           
             
+            DrawMap();*/
+
+            /*string s = "Бык тупогуб, тупогубенький бычок, у быка губа бела была тупа";
+            string pat = @"\w*";
+            string pattern = pat + @"\S";
+            Regex regex = new Regex(pattern);
+            MatchCollection matches = regex.Matches(s);*/
+            List<Twitt> twitts = new List<Twitt>();
+            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "Aladin qwe abatable"));
+            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "a great deal gulyzt'"));
+            twitts.Add(new Twitt(new Coordinate(12, 12), System.DateTime.Now, "qwqr abruptly-pinnate leaf qwqwrqrq"));
+
+            Searching searching = new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH));
         }
 
         public void DrawMap()
