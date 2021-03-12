@@ -60,9 +60,17 @@ namespace TwitterTrends.Analize
                 }
                 else
                 {
-                    while(t.Count() > 0 && comp.Length != text.Trim().Length)
+                    while(t.Count() > 0)
                     {
-                        ves = t.FirstOrDefault();
+                        if(t.Count() == 1)
+                        {
+                            ves = t.FirstOrDefault();
+                            if (comp.Length == text.Trim().Length)
+                            {
+                                key = comp;
+                                break;
+                            }
+                        }
                         key = comp;
                         pat += @"\s(\a\s)?(\w+)(\-\w+)?";
 
