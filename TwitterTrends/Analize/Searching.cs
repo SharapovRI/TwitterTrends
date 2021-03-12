@@ -6,17 +6,18 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TwitterTrends.Models;
+using Gma.DataStructures.StringSearch;
 
 namespace TwitterTrends.Analize
 {
     class Searching
     {
-        Hashtable hashtable;
+        UkkonenTrie<float> hashtable;
         Hashtable hashtableValue;
 
         List<Twitt> twitts;
 
-        public Searching(List<Twitt> twitts, Hashtable hashtable, List<State> states)
+        public Searching(List<Twitt> twitts, UkkonenTrie<float> hashtable, List<State> states)
         {
             this.twitts = twitts;
             this.hashtable = hashtable;
@@ -40,20 +41,40 @@ namespace TwitterTrends.Analize
             while (text.Length > 0)
             {                                                    
                 string pat = @"(\a\s)?\w+(\-\w+)?";
+                float ves = 0;
 
                 Regex regex = new Regex(pat);
                 Match match = regex.Match(text);
                 comp = match.Value;
 
-                if (string.IsNullOrWhiteSpace(comp))
+                if (string.IsNullOrWhiteSpace(comp) || comp.Length == 1 && comp != "a")
                 {
                     break;
                 }
 
+                var t = hashtable.Retrieve(comp); ///////выдает все совпадения, надо добирать по одному слову, пока не останется 1 вариант
+                string key = string.Empty;
+                if (t.Count() == 0)
+                {
+                    text = text.Remove(0, text.IndexOf(comp) + comp.Length);
+                }
+                else
+                {
+                    while(t.Count() > 0 && comp.Length != text.Trim().Length)
+                    {
+                        ves = t.FirstOrDefault();
+                        key = comp;
+                        pat += @"\s(\a\s)?(\w+)(\-\w+)?";
+
+                        regex = new Regex(pat);
+                        match = regex.Match(text);
+                        comp = match.Value;
+                        t = hashtable.Retrieve(comp);
+                    }
+                }
                 //if (hashtable.ContainsKey(comp[0].ToString()))
                 //{
-                    string key;
-                    weight += OQIWje(comp, text, out key);
+                    weight += ves;
                     text = text.Remove(0, text.IndexOf(key) + key.Length);
                 //}
                 //else
@@ -77,7 +98,7 @@ namespace TwitterTrends.Analize
             string mostClose = string.Empty;
             string pat = @"(\w+)(\-\w+)?";
 
-            hashtableValue = (Hashtable)hashtable[comp[0].ToString()];
+            //hashtableValue = (Hashtable)hashtable[comp[0].ToString()];
             //variables = new Hashtable(hashtableValue);
             /*variables2 = new Hashtable(hashtableValue);
 
