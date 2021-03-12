@@ -7,11 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Background="#56B5FF" >
-    <Viewbox Stretch="Uniform"  Margin="0,0,0,10" x:Name="ZoomViewbox" MouseWheel="ZoomViewbox_MouseWheel" >
-            <Grid x:Name="gridMap" >
-                <Grid.RenderTransform>
-                    <ScaleTransform x:Name="stMap" ScaleX="1" ScaleY="1" CenterX="5" CenterY="5" />
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Slider Grid.Row="0" Background="AliceBlue"></Slider>
+        <Viewbox Grid.Row="1" Stretch="Uniform"  Margin="0,0,0,10" x:Name="ZoomViewbox"  >
+            <Grid x:Name="gridMap" MouseWheel="ZoomViewbox_MouseWheel">
+               <Grid.RenderTransform>
+                 <ScaleTransform x:Name="stMap" ScaleX="1" ScaleY="1" />
                 </Grid.RenderTransform>
             </Grid>
         </Viewbox>
+    </Grid>
 </Window>

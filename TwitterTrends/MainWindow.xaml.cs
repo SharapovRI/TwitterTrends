@@ -14,53 +14,66 @@ namespace TwitterTrends
     {        
         private const string JSON_PATH = @"../../Files/states.json";
         private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";
-        private List<State> states;
-        private const float XCOMPRESSION = 14;
-        private const float YCOMPRESSION = -20;
-        private const float XOFFSET = 2500;
-        private const float YOFFSET = 1500;
-
-
-
+        private Map map;        
         public MainWindow()
         {
             InitializeComponent();
-            this.WindowState = WindowState.Maximized;
-            states = JsonParser.ParseStates(JSON_PATH);
-            Dictionary<string, float> d = SantimentsParser.ParseWords(SENTIMENTS_PATH);
+            FormWindow();
+            FormMap();            
             DrawMap();
         }
 
         public void DrawMap()
         {            
-            foreach(var state in states)
-            {                
+            foreach (var state in map.states)
+            {                               
                 foreach (var polygon4 in state.Polygons)
-                {
+                {                    
                     System.Windows.Shapes.Polygon plg = new System.Windows.Shapes.Polygon();                    
                     foreach(var coordinate in polygon4.Coordinates)
                     {
-                        plg.Points.Add(new Point(coordinate.X* XCOMPRESSION + XOFFSET, coordinate.Y* YCOMPRESSION + YOFFSET));
+                        plg.Points.Add(new Point(coordinate.Y* map.YCOMPRESSION + map.YOFFSET, coordinate.X* map.XCOMPRESSION + map.XOFFSET));                        
                     }
                     plg.Stroke = Brushes.Black;
-                    plg.Fill = Brushes.Gray;
-                    gridMap.Children.Add(plg);                                    
-                }                
+                    plg.Fill = Brushes.Green;
+                    gridMap.Children.Add(plg);                    
+                }
+                
             }            
         }
-
         private void ZoomViewbox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
+            var position = e.GetPosition(gridMap);
+            stMap.CenterX = position.X;
+            stMap.CenterY = position.Y;
+
+
             if (e.Delta > 0)
-            {                
-                stMap.ScaleX += 0.1;
-                stMap.ScaleY += 0.1;
+            {         
+                
+                stMap.ScaleX += 0.2;
+                stMap.ScaleY += 0.2;
             }
             else
             {
-                stMap.ScaleX -= 0.1;
-                stMap.ScaleY -= 0.1;
+                if (stMap.ScaleX >= 1 && stMap.ScaleY >= 1)
+                {
+                    stMap.ScaleX -= 0.2;
+                    stMap.ScaleY -= 0.2;
+                }
             }
+        }
+        private void FormMap()
+        {
+            map = JsonParser.ParseStates(JSON_PATH);
+            map.YCOMPRESSION = 14;
+            map.XCOMPRESSION = -20;
+            map.YOFFSET = 2500;
+            map.XOFFSET = 1500;
+        }
+        private void FormWindow()
+        {
+            this.WindowState = WindowState.Maximized;
         }
     }
 }

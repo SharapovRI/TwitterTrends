@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Coordinate.cs" />
+    <Compile Include="Models\Map.cs" />
     <Compile Include="Models\Polygon.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\Twitt.cs" />

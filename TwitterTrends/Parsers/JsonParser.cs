@@ -7,7 +7,7 @@ namespace TwitterTrends.Parsers
 {
     public static class JsonParser
     {
-        public static List<State> ParseStates(string pathToFile)
+        public static Map ParseStates(string pathToFile)
         {
             string jsonString;
             using (StreamReader sr = new StreamReader(pathToFile))
@@ -27,10 +27,8 @@ namespace TwitterTrends.Parsers
                     {
                         Polygon polygon = new Polygon(state.StateId);
                         foreach (var crdn in plgn)
-                        {
-                            float x = float.Parse(crdn.First.ToString().Replace('.', ','));
-                            float y = float.Parse(crdn.Last.ToString().Replace('.', ','));
-                            Coordinate coordinate = new Coordinate(x, y);
+                        {                                                      
+                            Coordinate coordinate = new Coordinate(float.Parse(crdn.Last.ToString().Replace('.', ',')), float.Parse(crdn.First.ToString().Replace('.', ',')));
                             polygon.Coordinates.Add(coordinate);
                         }
                         state.Polygons.Add(polygon);
@@ -38,7 +36,7 @@ namespace TwitterTrends.Parsers
                 }
                 states.Add(state);
             }
-            return states;
+            return new Map() { states = states };
         }
     }
 }
