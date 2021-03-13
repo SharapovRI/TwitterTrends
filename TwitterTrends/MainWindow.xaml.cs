@@ -24,6 +24,7 @@ namespace TwitterTrends
         private const float YCOMPRESSION = -20;
         private const float XOFFSET = 2500;
         private const float YOFFSET = 1500;
+        HashSet<string> hashset = new HashSet<string>();
 
 
 
@@ -33,8 +34,8 @@ namespace TwitterTrends
             this.WindowState = WindowState.Maximized;
             states = JsonParser.ParseStates(JSON_PATH);
             Map.GiveStates(states);
-            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/cali_tweets2014.txt");
-            Searching searching = new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH), states);
+            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/movie_tweets2014.txt");
+            Searching searching = new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), states, hashset);
             DrawMap();                       
         }
 

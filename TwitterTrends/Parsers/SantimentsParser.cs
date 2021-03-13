@@ -10,9 +10,9 @@ namespace TwitterTrends.Parsers
 {
     public static class SantimentsParser
     {
-        public static Hashtable ParseWords(string filePath)
+        public static Hashtable ParseWords(string filePath, ref HashSet<string> hashset)
         {
-            Hashtable mainHashtable = new Hashtable(); 
+            Hashtable mainHashtable = new Hashtable();
             string line;
             using (StreamReader sr = new StreamReader(filePath))
             {
@@ -23,6 +23,11 @@ namespace TwitterTrends.Parsers
                     string word = wordWithValue[0];
                     float value = float.Parse(wordWithValue[1].Replace('.', ','));
                     mainHashtable.Add(word, value);
+                    var words = word.Split(' ');
+                    foreach (var item in words)
+                    {
+                        hashset.Add(item);
+                    }
                 }
             }
 
