@@ -26,6 +26,10 @@ namespace TwitterTrends.Parsers
                 while ((line = reader.ReadLine()) != null)
                 {
                     var twoParts = line.Split('\t');
+                    if (twoParts.Length < 4)
+                    {
+                        continue;
+                    }
 
                     if (string.IsNullOrWhiteSpace(line) || twoParts[0][0] != '[') continue;
 

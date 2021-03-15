@@ -34,7 +34,7 @@ namespace TwitterTrends
             this.WindowState = WindowState.Maximized;
             states = JsonParser.ParseStates(JSON_PATH);
             Map.GiveStates(states);
-            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
+            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/tweets2011.txt");
             Searching searching = new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), states, hashset);
             DrawMap();                       
         }
