@@ -26,7 +26,7 @@ namespace TwitterTrends.Analize
                 var state = states.FindAll(u => u.StateId == item.idState).FirstOrDefault();
                 if (state != null)
                 {
-                    state.weight += CheckSame(item.Text.ToLower());
+                    item.weight += CheckSame(item.Text.ToLower());
                 }
             }
         }
@@ -36,37 +36,42 @@ namespace TwitterTrends.Analize
             string comp;
             float weight = 0;
 
-
-            while (text.Length > 0)
+            var sentences = text.Split('.', '!', '?', ':', ';', ',', '"');
+            foreach (var item in sentences)
             {
-                string pat = @"(\a\s)?\w+(\-\w+)?";
+                text = item;
 
-                Regex regex = new Regex(pat);
-                Match match = regex.Match(text);
-                comp = match.Value;
-
-                if (string.IsNullOrWhiteSpace(comp))
+                while (text.Length > 0)
                 {
-                    break;
-                }
-                if (!hashset.Contains(comp))
-                {
-                    text = text.Remove(0, text.IndexOf(comp) + comp.Length);
-                    break;
-                }
+                    string pat = @"(\a\s)?\w+(\-\w+)?";
 
-                string key;
-                weight += FindSame(comp, text, out key);
-                text = text.Remove(0, text.IndexOf(key) + key.Length);
+                    Regex regex = new Regex(pat);
+                    Match match = regex.Match(text);
+                    comp = match.Value;
 
+                    if (string.IsNullOrWhiteSpace(comp))
+                    {
+                        break;
+                    }
+                    if (!hashset.Contains(comp))
+                    {
+                        text = text.Remove(0, text.IndexOf(comp) + comp.Length);
+                        continue;
+                    }
+
+                    string key = comp;
+                    weight += FindSame(comp, text, ref key);
+                    text = text.Remove(0, text.IndexOf(key) + key.Length);
+
+                }
             }
 
             return weight;
         }
 
-        private float FindSame(string comp, string text, out string lenght)
+        private float FindSame(string comp, string text, ref string lenght)
         {
-            lenght = comp;
+            //lenght = comp;
             if (comp.Length == 1 && comp != "a")
             {
                 return 0;
@@ -79,6 +84,7 @@ namespace TwitterTrends.Analize
                 if (hashtable.ContainsKey(comp))
                 {
                     mostClose = comp;
+                    lenght = comp;
                 }
 
                 pat += @"\s(\a\s)?(\w+)(\-\w+)?";
@@ -86,7 +92,13 @@ namespace TwitterTrends.Analize
                 Regex regex = new Regex(pat);
                 Match match = regex.Match(text);
                 comp = match.Value;
+
+                if (!hashset.Contains(comp.Split(' ').LastOrDefault()))
+                {
+                    break;
+                }
             }
+
             return Convert.ToSingle(hashtable[mostClose]);
         }
     }
