@@ -12,13 +12,14 @@ namespace TwitterTrends.Analize
     class Searching
     {
         Hashtable hashtable;
-
+        HashSet<string> hashset;
         List<Twitt> twitts;
 
-        public Searching(List<Twitt> twitts, Hashtable hashtable, List<State> states)
+        public Searching(List<Twitt> twitts, Hashtable hashtable, List<State> states, HashSet<string> hashset)
         {
             this.twitts = twitts;
             this.hashtable = hashtable;
+            this.hashset = hashset;
 
             foreach (var item in twitts)
             {
@@ -46,6 +47,11 @@ namespace TwitterTrends.Analize
 
                 if (string.IsNullOrWhiteSpace(comp))
                 {
+                    break;
+                }
+                if (!hashset.Contains(comp))
+                {
+                    text = text.Remove(0, text.IndexOf(comp) + comp.Length);
                     break;
                 }
 
