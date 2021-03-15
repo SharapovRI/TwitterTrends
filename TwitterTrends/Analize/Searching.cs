@@ -17,17 +17,17 @@ namespace TwitterTrends.Analize
 
         public Searching(List<Twitt> twitts, Hashtable hashtable, List<State> states, HashSet<string> hashset)
         {
-            this.twitts = twitts;
-            this.hashtable = hashtable;
-            this.hashset = hashset;
+            this.twitts = twitts;               //твиты в которых есть текст
+            this.hashtable = hashtable;         //хештаблица
+            this.hashset = hashset;             //все слова из сантиментов
 
             foreach (var item in twitts)
             {
-                var state = states.FindAll(u => u.StateId == item.idState).FirstOrDefault();
+                /*var state = states.FindAll(u => u.StateId == item.idState).FirstOrDefault();
                 if (state != null)
-                {
+                {*/
                     item.weight += CheckSame(item.Text.ToLower());
-                }
+                //}
             }
         }
 
@@ -40,14 +40,11 @@ namespace TwitterTrends.Analize
             foreach (var item in sentences)
             {
                 text = item;
-
-                while (text.Length > 0)
+                var words = text.Split(' ');
+                int i = 0;
+                while (i < words.Length)
                 {
-                    string pat = @"(\a\s)?\w+(\-\w+)?";
-
-                    Regex regex = new Regex(pat);
-                    Match match = regex.Match(text);
-                    comp = match.Value;
+                    comp = words[i];
 
                     if (string.IsNullOrWhiteSpace(comp))
                     {
@@ -55,45 +52,35 @@ namespace TwitterTrends.Analize
                     }
                     if (!hashset.Contains(comp))
                     {
-                        text = text.Remove(0, text.IndexOf(comp) + comp.Length);
+                        i++;
                         continue;
                     }
-
-                    string key = comp;
-                    weight += FindSame(comp, text, ref key);
-                    text = text.Remove(0, text.IndexOf(key) + key.Length);
-
+                    weight += FindSame(comp, words, ref i);
+                    i++;
                 }
             }
 
             return weight;
         }
 
-        private float FindSame(string comp, string text, ref string lenght)
+        private float FindSame(string comp, string[] text, ref int lenght)
         {
-            //lenght = comp;
-            if (comp.Length == 1 && comp != "a")
-            {
-                return 0;
-            }
+            int i = lenght;
             string mostClose = string.Empty;
-            string pat = @"(\w+)(\-\w+)?";
+            if (hashtable.ContainsKey(comp))
+            {
+                mostClose = comp;
+            }
 
-            while (comp.Length > 0 && comp.Length != text.Trim().Length && !string.IsNullOrWhiteSpace(comp))
+            while (comp.Length > 0 && !string.IsNullOrWhiteSpace(comp) && i < text.Length - 1)
             {
                 if (hashtable.ContainsKey(comp))
                 {
                     mostClose = comp;
-                    lenght = comp;
+                    lenght = i;
                 }
-
-                pat += @"\s(\a\s)?(\w+)(\-\w+)?";
-
-                Regex regex = new Regex(pat);
-                Match match = regex.Match(text);
-                comp = match.Value;
-
-                if (!hashset.Contains(comp.Split(' ').LastOrDefault()))
+                comp += ' ' + text[++i];
+                if (!hashset.Contains(text[i]))
                 {
                     break;
                 }

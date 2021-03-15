@@ -13,7 +13,7 @@ namespace TwitterTrends.Models
             TwittCoordinate = coordinate;
             DateTime = dateTime;
             Text = text;
-            idState = Map.GetState(TwittCoordinate);
+            //idState = Map.GetState(TwittCoordinate);
         }
         public Coordinate TwittCoordinate;
         DateTime DateTime;

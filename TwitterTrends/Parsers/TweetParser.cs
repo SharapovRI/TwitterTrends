@@ -12,7 +12,7 @@ namespace TwitterTrends.Parsers
     {
         private static Regex locationRegex = new Regex(@"[-]?[0-9]{1,3}[.][0-9]{1,15}");
         private static Regex dateRegex = new Regex(@"[0-9]{4}([-][0-9]{2}){2}.([0-9][0-9][:]){2}[0-9][0-9]");
-        private static Regex textRegex = new Regex(@"\d\t.+");
+        private static Regex textRegex = new Regex(@"[\w*\/*\p{Zs}*\p{P}*]+$", RegexOptions.IgnoreCase);
 
         public static List<Twitt> Twittparce(string path)
         {
@@ -23,13 +23,13 @@ namespace TwitterTrends.Parsers
                 while ((line = reader.ReadLine()) != null)
                 {
                     if (string.IsNullOrWhiteSpace(line) || line[0] != '[') continue;
-                    var regex = new Regex(@"\d\t");
+                    //var regex = new Regex(@"\d\t");
                     MatchCollection match = locationRegex.Matches(line);
-                    Match match1 = dateRegex.Match(line);
-                    Match match2 = textRegex.Match(line);
+                    //Match match1 = dateRegex.Match(line);
+                    //Match match2 = textRegex.Match(line);
                     if (match.Count == 2)
                     {
-                        tweet.Add(new Twitt(GetCoordinate(match), DateTime.Parse(match1.Value), GetMessage(match2, regex)));
+                        tweet.Add(new Twitt(GetCoordinate(match), Convert.ToDateTime(dateRegex.Match(line).Value), textRegex.Match(line).Value));
                     }
                 }
             }
@@ -47,6 +47,7 @@ namespace TwitterTrends.Parsers
             float x = float.Parse(match[0].Value, NumberStyles.Any, ci);
             float y = float.Parse(match[1].Value, NumberStyles.Any, ci);
             Coordinate coordinate = new Coordinate(x, y);
+            //Coordinate coordinate = new Coordinate(float.Parse(match[0].Value.Replace('.', ',')), float.Parse(match[1].Value.Replace('.', ',')));
             return coordinate;
         }
     }
