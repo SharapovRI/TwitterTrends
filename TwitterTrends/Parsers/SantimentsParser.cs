@@ -20,10 +20,10 @@ namespace TwitterTrends.Parsers
                 {
                     line = sr.ReadLine();
                     var wordWithValue = line.Split(',');
-                    string word = wordWithValue[0];
+                    string fraze = wordWithValue[0];
                     float value = float.Parse(wordWithValue[1].Replace('.', ','));
-                    mainHashtable.Add(word, value);
-                    var words = word.Split(' ');
+                    mainHashtable.Add(fraze, value);
+                    var words = fraze.Split(' ');
                     foreach (var item in words)
                     {
                         hashset.Add(item);
