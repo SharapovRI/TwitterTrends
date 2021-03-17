@@ -36,7 +36,7 @@ namespace TwitterTrends.Analize
             string comp;
             float weight = 0;
 
-            var sentences = text.Split('.', '!', '?', ':', ';', ',', '"');
+            var sentences = text.Split('.', '!', '?', ':', ';', ',', '"', '(', ')');
             foreach (var item in sentences)
             {
                 text = item;
