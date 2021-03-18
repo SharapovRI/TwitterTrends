@@ -3,6 +3,7 @@
 using GMap.NET.WindowsPresentation;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -35,8 +36,15 @@ namespace TwitterTrends
             states = JsonParser.ParseStates(JSON_PATH);
             Map.GiveStates(states);
             List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
+            //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/tweets2011.txt");
+            GetId(twitts);
             new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), states, hashset);
             DrawMap();                       
+        }
+
+        async private void GetId(List<Twitt> twitts)
+        {
+            await Task.Run(() => Map.AsyncFromTweets(twitts));
         }
 
         public void DrawMap()

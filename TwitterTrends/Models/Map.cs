@@ -10,6 +10,14 @@ namespace TwitterTrends.Models
     {
         static List<State> states = new List<State>();
 
+        public static void AsyncFromTweets(List<Twitt> twitts)
+        {
+            foreach (var item in twitts)
+            {
+                item.idState = GetState(item.TwittCoordinate);
+            }
+        }
+
         public static string GetState(Coordinate p)
         {
             foreach (var item in states)
