@@ -16,7 +16,7 @@ namespace TwitterTrends.Models
             {
                 foreach (var jtem in item.Polygons)
                 {
-                    if (isInside(jtem.Coordinates, p))
+                    if (isInside(jtem, p))
                     {
                         return item.StateId;
                     }
@@ -25,23 +25,25 @@ namespace TwitterTrends.Models
             return "UNKNOWN";
         }
 
-        private static bool isInside(List<Coordinate> points, Coordinate p)
+        private static bool isInside(Polygon polygon, Coordinate p)
         {
-            int count = points.Count;
+            int count = polygon.Coordinates.Count;
             if (count < 3) return false;
             bool res = false;
-            for (int i = 0, j = count - 1; i < count; i++)
-            {
-                var p1 = points[i];
-                var p2 = points[j];
-                if (p1.Y < p.Y && p2.Y >= p.Y || p2.Y < p.Y && p1.Y >= p.Y)
+            if (p.Y > polygon.min_lat && p.Y < polygon.max_lat && p.X > polygon.min_lng && p.X < polygon.max_lng) {
+                for (int i = 0, j = count - 1; i < count; i++)
                 {
-                    if (p1.X + (p.Y - p1.Y) / (p2.Y - p1.Y) * (p2.X - p1.X) < p.X)
+                    var p1 = polygon.Coordinates[i];
+                    var p2 = polygon.Coordinates[j];
+                    if (p1.Y < p.Y && p2.Y >= p.Y || p2.Y < p.Y && p1.Y >= p.Y)
                     {
-                        res = !res;
+                        if (p1.X + (p.Y - p1.Y) / (p2.Y - p1.Y) * (p2.X - p1.X) < p.X)
+                        {
+                            res = !res;
+                        }
                     }
+                    j = i;
                 }
-                j = i;
             }
             return res;
         }
