@@ -14,5 +14,9 @@ namespace TwitterTrends.Models
         }
         public string StateId;
         public List<Coordinate> Coordinates = new List<Coordinate>();
+        public float max_lat = -180;
+        public float max_lng = -180; //x
+        public float min_lat = 180; //y
+        public float min_lng = 180;
     }
 }
