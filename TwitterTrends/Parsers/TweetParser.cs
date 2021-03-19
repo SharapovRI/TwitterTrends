@@ -10,6 +10,21 @@ namespace TwitterTrends.Parsers
 {
     class Tweetparcer
     {
+        async public static List<Twitt> AsyncParse(string path)
+        {
+            List<Twitt> tweet = new List<Twitt>();
+            string line;
+            using (StreamReader reader = new StreamReader(path, true))
+            {
+                List<Twitt> tw = new List<Twitt>();
+                while ((line = reader.ReadLine()) != null)
+                {
+
+                }
+            }
+        }
+
+
         public static List<Twitt> Twittparce(string path)
         {
             List<Twitt> tweet = new List<Twitt>();

@@ -20,25 +20,26 @@ namespace TwitterTrends
     {        
         private const string JSON_PATH = @"../../Files/states.json";
         private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";
-        private List<State> states;
+        /*private List<State> states;
         private const float XCOMPRESSION = 14;
         private const float YCOMPRESSION = -20;
         private const float XOFFSET = 2500;
-        private const float YOFFSET = 1500;
+        private const float YOFFSET = 1500;*/
         HashSet<string> hashset = new HashSet<string>();
+        Map map = new Map();
 
 
 
         public MainWindow()
         {
+            FormWindow();
             InitializeComponent();
-            this.WindowState = WindowState.Maximized;
-            states = JsonParser.ParseStates(JSON_PATH);
-            StateChecker.GiveStates(states);
+            StateChecker.GiveStates(map.states);
             List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
             //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/tweets2011.txt");
             GetId(twitts);
-            new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), states, hashset);
+            new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), map.states, hashset);
+            FormMap();
             DrawMap();                       
         }
 
@@ -89,7 +90,7 @@ namespace TwitterTrends
         }
         private void FormMap()
         {
-            map = JsonParser.ParseStates(JSON_PATH);
+            map.states = JsonParser.ParseStates(JSON_PATH);
             map.YCOMPRESSION = 14;
             map.XCOMPRESSION = -20;
             map.YOFFSET = 2500;
