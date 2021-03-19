@@ -34,7 +34,7 @@ namespace TwitterTrends
             InitializeComponent();
             this.WindowState = WindowState.Maximized;
             states = JsonParser.ParseStates(JSON_PATH);
-            Map.GiveStates(states);
+            StateChecker.GiveStates(states);
             List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
             //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/tweets2011.txt");
             GetId(twitts);
@@ -44,7 +44,7 @@ namespace TwitterTrends
 
         async private void GetId(List<Twitt> twitts)
         {
-            await Task.Run(() => Map.AsyncFromTweets(twitts));
+            await Task.Run(() => StateChecker.AsyncFromTweets(twitts));
         }
 
         public void DrawMap()

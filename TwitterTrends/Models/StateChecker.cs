@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TwitterTrends.Models
 {
-    class Map
+    class StateChecker
     {
         static List<State> states = new List<State>();
 
