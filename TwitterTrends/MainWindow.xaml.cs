@@ -49,20 +49,55 @@ namespace TwitterTrends
 
         public void DrawMap()
         {            
-            foreach(var state in states)
-            {                
+            foreach (var state in map.states)
+            {                               
                 foreach (var polygon4 in state.Polygons)
-                {
+                {                    
                     System.Windows.Shapes.Polygon plg = new System.Windows.Shapes.Polygon();                    
                     foreach(var coordinate in polygon4.Coordinates)
                     {
-                        plg.Points.Add(new Point(coordinate.Y* XCOMPRESSION + XOFFSET, coordinate.X* YCOMPRESSION + YOFFSET));
+                        plg.Points.Add(new Point(coordinate.Y* map.YCOMPRESSION + map.YOFFSET, coordinate.X* map.XCOMPRESSION + map.XOFFSET));                        
                     }
                     plg.Stroke = Brushes.Black;
-                    plg.Fill = Brushes.Gray;
-                    gridMap.Children.Add(plg);                                    
-                }                
+                    plg.Fill = Brushes.Green;
+                    gridMap.Children.Add(plg);                    
+                }
+                
             }            
-        }         
+        }
+        private void ZoomViewbox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            var position = e.GetPosition(gridMap);
+            stMap.CenterX = position.X;
+            stMap.CenterY = position.Y;
+
+
+            if (e.Delta > 0)
+            {         
+                
+                stMap.ScaleX += 0.2;
+                stMap.ScaleY += 0.2;
+            }
+            else
+            {
+                if (stMap.ScaleX >= 1 && stMap.ScaleY >= 1)
+                {
+                    stMap.ScaleX -= 0.2;
+                    stMap.ScaleY -= 0.2;
+                }
+            }
+        }
+        private void FormMap()
+        {
+            map = JsonParser.ParseStates(JSON_PATH);
+            map.YCOMPRESSION = 14;
+            map.XCOMPRESSION = -20;
+            map.YOFFSET = 2500;
+            map.XOFFSET = 1500;
+        }
+        private void FormWindow()
+        {
+            this.WindowState = WindowState.Maximized;
+        }
     }
 }
