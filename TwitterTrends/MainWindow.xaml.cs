@@ -3,6 +3,7 @@
 using GMap.NET.WindowsPresentation;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -27,6 +28,7 @@ namespace TwitterTrends
         private const float YOFFSET = 1500;*/
         HashSet<string> hashset = new HashSet<string>();
         Map map = new Map();
+        private static List<Twitt> twitts1 = new List<Twitt>();
 
 
 
@@ -35,12 +37,26 @@ namespace TwitterTrends
             FormWindow();
             InitializeComponent();
             StateChecker.GiveStates(map.states);
-            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
-            //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/tweets2011.txt");
-            GetId(twitts);
+            //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
+            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/tweets2011.txt");
+            //Tweetparcer.AsyncParse(@"../../Files/tweets2011.txt");
+            //ParseTw(@"../../Files/tweets2011.txt");
+            //Tweetparcer.AsyncParse(@"../../Files/weekend_tweets2014.txt");
+            //GetId(twitts1);
             new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), map.states, hashset);
+            //Thread.Sleep(10000);
             FormMap();
             DrawMap();                       
+        }
+
+        public async Task ParseTw(string path)
+        {
+            var result = Task.Run(async () => { return await Tweetparcer.AsyncParse(path); }).Result;
+        }
+
+        internal static void GiveTwitts(List<Twitt> twitts)
+        {
+            twitts1 = twitts;
         }
 
         async private void GetId(List<Twitt> twitts)
