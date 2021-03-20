@@ -47,21 +47,20 @@ namespace TwitterTrends
             stMap.CenterX = position.X;
             stMap.CenterY = position.Y;
 
-
             if (e.Delta > 0)
-            {         
-                
+            {                       
                 stMap.ScaleX += 0.2;
                 stMap.ScaleY += 0.2;
             }
             else
             {
-                if (stMap.ScaleX >= 1 && stMap.ScaleY >= 1)
+                if (stMap.ScaleX > 1 && stMap.ScaleY > 1)
                 {
                     stMap.ScaleX -= 0.2;
                     stMap.ScaleY -= 0.2;
                 }
             }
+
         }
         private void FormMap()
         {
