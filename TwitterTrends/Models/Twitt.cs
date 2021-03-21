@@ -15,7 +15,7 @@ namespace TwitterTrends.Models
             Text = text;
         }
         public Coordinate TwittCoordinate;
-        DateTime DateTime;
+        DateTime DateTime; 
         string Text;
     }
 }
