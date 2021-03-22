@@ -24,6 +24,7 @@ namespace TwitterTrends
         private const float YCOMPRESSION = -20;
         private const float XOFFSET = 2500;
         private const float YOFFSET = 1500;
+        List<Twitt> twitts;
 
 
 
@@ -33,9 +34,10 @@ namespace TwitterTrends
             this.WindowState = WindowState.Maximized;
             states = JsonParser.ParseStates(JSON_PATH);
             Map.GiveStates(states);
-            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/cali_tweets2014.txt");
+            twitts = Tweetparcer.Twittparce(@"../../Files/cali_tweets2014.txt");
             Searching searching = new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH), states);
-            DrawMap();                       
+            DrawMap();
+            DrawTwitts();
         }
 
         public void DrawMap()
@@ -55,5 +57,18 @@ namespace TwitterTrends
                 }                
             }            
         }         
+
+        public void DrawTwitts()
+        {
+            foreach(var twitt in twitts)
+            {
+                Ellipse ellipse = new Ellipse { Width = 5, Height = 5 };
+                double left = (twitt.TwittCoordinate.Y * XCOMPRESSION + XOFFSET);
+                double top = (twitt.TwittCoordinate.X * YCOMPRESSION + YOFFSET);
+                ellipse.Margin = new Thickness(left, top, 0, 0);
+                ellipse.Fill = Brushes.Red;               
+                gridMap.Children.Add(ellipse);                               
+            }
+        }      
     }
 }
