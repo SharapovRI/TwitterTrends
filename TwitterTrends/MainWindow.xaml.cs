@@ -20,15 +20,9 @@ namespace TwitterTrends
     public partial class MainWindow : Window
     {        
         private const string JSON_PATH = @"../../Files/states.json";
-        private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";
-        /*private List<State> states;
-        private const float XCOMPRESSION = 14;
-        private const float YCOMPRESSION = -20;
-        private const float XOFFSET = 2500;
-        private const float YOFFSET = 1500;*/
+        private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";       
         HashSet<string> hashset = new HashSet<string>();
         Map map = new Map();
-        private static List<Twitt> twitts1 = new List<Twitt>();
 
 
 
@@ -36,15 +30,9 @@ namespace TwitterTrends
         {
             FormWindow();
             InitializeComponent();
-            StateChecker.GiveStates(map.states);
-            //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
-            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/tweets2011.txt");
-            //Tweetparcer.AsyncParse(@"../../Files/tweets2011.txt");
-            //ParseTw(@"../../Files/tweets2011.txt");
-            //Tweetparcer.AsyncParse(@"../../Files/weekend_tweets2014.txt");
-            //GetId(twitts1);
-            new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), map.states, hashset);
-            //Thread.Sleep(10000);
+            StateChecker.GiveStates(map.states);            
+            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/cali_tweets2014.txt");            
+            new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), map.states, hashset);            
             FormMap();
             DrawMap();                       
         }
@@ -52,11 +40,6 @@ namespace TwitterTrends
         public async Task ParseTw(string path)
         {
             var result = Task.Run(async () => { return await Tweetparcer.AsyncParse(path); }).Result;
-        }
-
-        internal static void GiveTwitts(List<Twitt> twitts)
-        {
-            twitts1 = twitts;
         }
 
         async private void GetId(List<Twitt> twitts)
@@ -68,16 +51,15 @@ namespace TwitterTrends
         {            
             foreach (var state in map.states)
             {                               
-                foreach (var polygon4 in state.Polygons)
-                {                    
-                    System.Windows.Shapes.Polygon plg = new System.Windows.Shapes.Polygon();                    
-                    foreach(var coordinate in polygon4.Coordinates)
+                foreach (var polygon in state.Polygons)
+                {                                                      
+                    foreach(var coordinate in polygon.Coordinates)
                     {
-                        plg.Points.Add(new Point(coordinate.Y* map.YCOMPRESSION + map.YOFFSET, coordinate.X* map.XCOMPRESSION + map.XOFFSET));                        
+                       polygon.polygon.Points.Add(new Point(coordinate.Y* map.YCOMPRESSION + map.YOFFSET, coordinate.X* map.XCOMPRESSION + map.XOFFSET));                        
                     }
-                    plg.Stroke = Brushes.Black;
-                    plg.Fill = Brushes.Green;
-                    gridMap.Children.Add(plg);                    
+                    polygon.polygon.Stroke = Brushes.Black;
+                    polygon.polygon.Fill = Brushes.Green;
+                    gridMap.Children.Add(polygon.polygon);                    
                 }
                 
             }            
@@ -97,7 +79,7 @@ namespace TwitterTrends
             }
             else
             {
-                if (stMap.ScaleX >= 1 && stMap.ScaleY >= 1)
+                if (stMap.ScaleX > 1 && stMap.ScaleY > 1)
                 {
                     stMap.ScaleX -= 0.2;
                     stMap.ScaleY -= 0.2;

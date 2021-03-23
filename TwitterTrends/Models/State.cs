@@ -11,5 +11,6 @@ namespace TwitterTrends.Models
         public string StateId { get; set; }
         public List<Polygon> Polygons = new List<Polygon>();
         public float weight;
+        public List<Twitt> CurrentTwitts = new List<Twitt>();
     }
 }

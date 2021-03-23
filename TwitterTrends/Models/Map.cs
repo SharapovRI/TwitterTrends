@@ -13,8 +13,6 @@ namespace TwitterTrends.Models
         public float XCOMPRESSION;
         public float YOFFSET;
         public float XOFFSET;
-
-
-
+        public List<Twitt> CurrentTwitts = new List<Twitt>();
     }
 }

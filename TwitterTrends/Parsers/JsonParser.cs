@@ -49,7 +49,6 @@ namespace TwitterTrends.Parsers
                             {
                                 polygon.min_lng = x;
                             }
-
                         }
 
                         state.Polygons.Add(polygon);

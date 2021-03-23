@@ -13,13 +13,61 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Slider Grid.Row="0" Background="AliceBlue"/>
-        <Viewbox Grid.Row="1" Stretch="Uniform"  Margin="0,0,0,10" x:Name="ZoomViewbox"  >
-            <Grid x:Name="gridMap" MouseWheel="ZoomViewbox_MouseWheel">
-               <Grid.RenderTransform>
-                 <ScaleTransform x:Name="stMap" ScaleX="1" ScaleY="1" />
-                </Grid.RenderTransform>
+        <Grid Grid.Row="0" Background="#fff"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" ClipToBounds="True">
+                <Grid Width="10" HorizontalAlignment="Left" Background="White" Panel.ZIndex="1">
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Style.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <EventTrigger.Actions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="Width" To="260"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger.Actions>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <EventTrigger.Actions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="Width" To="10"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger.Actions>
+                                </EventTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TreeView Width="250" Grid.Row="0" BorderBrush="White" HorizontalAlignment="Left">
+                        <TreeViewItem Header="Choose File" FontSize="14">
+                            <TreeViewItem Header="File 1" />
+                            <TreeViewItem Header="File 2" />
+                            <TreeViewItem Header="File 3" />
+                            <TreeViewItem Header="File 4" />
+                        </TreeViewItem>
+                    </TreeView>
+                    <Grid x:Name="gTweet" Grid.Row="1" Background="red">
+
+                    </Grid>
+                </Grid>
+                <Viewbox  Stretch="Uniform" Margin="0,0,0,10" x:Name="ZoomViewbox"  >
+                    <Grid x:Name="gridMap" MouseWheel="ZoomViewbox_MouseWheel">
+                        <Grid.RenderTransform>
+                            <ScaleTransform x:Name="stMap" ScaleX="1" ScaleY="1" />
+                        </Grid.RenderTransform>
+                    </Grid>
+                </Viewbox>
             </Grid>
-        </Viewbox>
+        </Grid>
     </Grid>
 </Window>
