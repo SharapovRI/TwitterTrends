@@ -68,6 +68,7 @@ namespace TwitterTrends
                     {
                         polygon4.graphicalPolygon.Points.Add(new Point(coordinate.Y* map.YCOMPRESSION + map.YOFFSET, coordinate.X* map.XCOMPRESSION + map.XOFFSET));                        
                     }
+                    //var statesMood = map.CalculateStatesMood();
                     polygon4.graphicalPolygon.Stroke = Brushes.Black;
                     polygon4.graphicalPolygon.Fill = Brushes.Green;
                     gridMap.Children.Add(polygon4.graphicalPolygon);                    

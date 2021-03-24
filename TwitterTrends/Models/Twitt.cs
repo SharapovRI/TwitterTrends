@@ -24,7 +24,6 @@ namespace TwitterTrends.Models
         public string Text;
         public string idState;
         public float? weight;
-
         /*async private void GetIdStateAsync(Coordinate coordinates)
         {
             Action action;
