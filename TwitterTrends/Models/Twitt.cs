@@ -16,7 +16,7 @@ namespace TwitterTrends.Models
             TwittCoordinate = coordinate;
             DateTime = dateTime;
             Text = text;
-            //idState = Map.GetState(TwittCoordinate);
+            idState = StateChecker.GetState(TwittCoordinate);
             //GetIdStateAsync(coordinate);
         }
         public Coordinate TwittCoordinate;

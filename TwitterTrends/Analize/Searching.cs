@@ -26,7 +26,11 @@ namespace TwitterTrends.Analize
                 /*var state = states.FindAll(u => u.StateId == item.idState).FirstOrDefault();
                 if (state != null)
                 {*/
+                if (item.weight != null)
+                {
                     item.weight += CheckSame(item.Text.ToLower());
+                }
+                else item.weight = CheckSame(item.Text.ToLower());
                 //}
             }
         }
@@ -34,16 +38,21 @@ namespace TwitterTrends.Analize
         private float? CheckSame(string text)
         {
             string comp;
-            float? weight = null;
+            float? weight = 0;
+            bool isWeightNull = true;
 
             var sentences = text.Split('.', '!', '?', ':', ';', ',', '"', '(', ')');
             foreach (var item in sentences)
             {
                 text = item;
-                var words = text.Split(' ');
+                var words = text.Trim().Split(' ');
                 int i = 0;
                 while (i < words.Length)
                 {
+                    if (isWeightNull && weight != 0)
+                    {
+                        isWeightNull = false;
+                    }
                     comp = words[i];
 
                     if (string.IsNullOrWhiteSpace(comp))
@@ -60,7 +69,11 @@ namespace TwitterTrends.Analize
                 }
             }
 
-            return weight;
+            if (!isWeightNull)
+            {
+                return weight;
+            }
+            else return null;
         }
 
         private float FindSame(string comp, string[] text, ref int lenght)
