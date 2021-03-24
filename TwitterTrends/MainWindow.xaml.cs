@@ -17,12 +17,7 @@ namespace TwitterTrends
     public partial class MainWindow : Window
     {        
         private const string JSON_PATH = @"../../Files/states.json";
-        private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";
-        /*private List<State> states;
-        private const float XCOMPRESSION = 14;
-        private const float YCOMPRESSION = -20;
-        private const float XOFFSET = 2500;
-        private const float YOFFSET = 1500;*/
+        private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";       
         HashSet<string> hashset = new HashSet<string>();
         Map map = new Map();
         private static List<Twitt> twitts1 = new List<Twitt>();
@@ -33,14 +28,15 @@ namespace TwitterTrends
         {
             FormWindow();
             InitializeComponent();
-            StateChecker.GiveStates(map.states);
+            StateChecker.GiveStates(map.CurrentStates);
             //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
             List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/cali_tweets2014.txt");
             //Tweetparcer.AsyncParse(@"../../Files/tweets2011.txt");
             //ParseTw(@"../../Files/tweets2011.txt");
             //Tweetparcer.AsyncParse(@"../../Files/weekend_tweets2014.txt");
             //GetId(twitts1);
-            new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), map.states, hashset);
+            new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), map.CurrentStates, hashset);
+            twitts1 = twitts;
             //Thread.Sleep(10000);
             FormMap();
             DrawMap();                       
@@ -63,7 +59,7 @@ namespace TwitterTrends
 
         public void DrawMap()
         {            
-            foreach (var state in map.states)
+            foreach (var state in map.CurrentStates)
             {                               
                 foreach (var polygon4 in state.Polygons)
                 {                                                         
@@ -102,11 +98,13 @@ namespace TwitterTrends
         }
         private void FormMap()
         {
-            map.states = JsonParser.ParseStates(JSON_PATH);
+            map.CurrentStates= JsonParser.ParseStates(JSON_PATH);
             map.YCOMPRESSION = 14;
             map.XCOMPRESSION = -20;
             map.YOFFSET = 2500;
             map.XOFFSET = 1500;
+            map.CurrentTwitts = twitts1;
+            var statesMood = map.CalculateStatesMood();
         }
         private void FormWindow()
         {
