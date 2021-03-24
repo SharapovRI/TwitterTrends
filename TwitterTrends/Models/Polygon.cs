@@ -8,6 +8,8 @@ namespace TwitterTrends.Models
 {
     public class Polygon
     {
+
+        public System.Windows.Shapes.Polygon graphicalPolygon = new System.Windows.Shapes.Polygon();
         public Polygon(string StateName)
         {
             this.StateId = StateName;

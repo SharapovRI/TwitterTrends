@@ -13,8 +13,15 @@ namespace TwitterTrends.Models
         public float XCOMPRESSION;
         public float YOFFSET;
         public float XOFFSET;
+        public List<Twitt> currentTwitts = new List<Twitt>();
 
 
 
+        //метод который будт считать настроянния всех штатаов и расскрашивать их(либо могу сделать отдельный метод, который считает и отдельный который разукрашивает, я думаю это будет правильней)
+        //это пишет Дима
+        public void CalculateMood()
+        {
+
+        }
     }
 }

@@ -66,15 +66,14 @@ namespace TwitterTrends
             foreach (var state in map.states)
             {                               
                 foreach (var polygon4 in state.Polygons)
-                {                    
-                    System.Windows.Shapes.Polygon plg = new System.Windows.Shapes.Polygon();                    
+                {                                                         
                     foreach(var coordinate in polygon4.Coordinates)
                     {
-                        plg.Points.Add(new Point(coordinate.Y* map.YCOMPRESSION + map.YOFFSET, coordinate.X* map.XCOMPRESSION + map.XOFFSET));                        
+                        polygon4.graphicalPolygon.Points.Add(new Point(coordinate.Y* map.YCOMPRESSION + map.YOFFSET, coordinate.X* map.XCOMPRESSION + map.XOFFSET));                        
                     }
-                    plg.Stroke = Brushes.Black;
-                    plg.Fill = Brushes.Green;
-                    gridMap.Children.Add(plg);                    
+                    polygon4.graphicalPolygon.Stroke = Brushes.Black;
+                    polygon4.graphicalPolygon.Fill = Brushes.Green;
+                    gridMap.Children.Add(polygon4.graphicalPolygon);                    
                 }
                 
             }            
@@ -94,7 +93,7 @@ namespace TwitterTrends
             }
             else
             {
-                if (stMap.ScaleX >= 1 && stMap.ScaleY >= 1)
+                if (stMap.ScaleX > 1 && stMap.ScaleY > 1)
                 {
                     stMap.ScaleX -= 0.2;
                     stMap.ScaleY -= 0.2;

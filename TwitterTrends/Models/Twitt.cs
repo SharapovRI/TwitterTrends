@@ -23,7 +23,7 @@ namespace TwitterTrends.Models
         DateTime DateTime;
         public string Text;
         public string idState;
-        public float weight;
+        public float? weight;
 
         /*async private void GetIdStateAsync(Coordinate coordinates)
         {

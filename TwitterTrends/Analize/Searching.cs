@@ -31,10 +31,10 @@ namespace TwitterTrends.Analize
             }
         }
 
-        private float CheckSame(string text)
+        private float? CheckSame(string text)
         {
             string comp;
-            float weight = 0;
+            float? weight = null;
 
             var sentences = text.Split('.', '!', '?', ':', ';', ',', '"', '(', ')');
             foreach (var item in sentences)
