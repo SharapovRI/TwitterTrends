@@ -6,15 +6,19 @@
         xmlns:local="clr-namespace:TwitterTrends"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        Background="#56B5FF" >
+         >
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="#fff"/>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="0" Background="#fff">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button x:Name="btnAddFile" Content="Add file" Background="White" BorderBrush="White" Height="25" Margin="0,0,0,2.4" VerticalAlignment="Bottom" Click="btnAddFile_Click" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Background="#56B5FF">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -56,11 +60,10 @@
                             <TreeViewItem Header="File 4" />
                         </TreeViewItem>
                     </TreeView>
-                    <Grid x:Name="gTweet" Grid.Row="1" Background="red">
-                        
+                    <Grid x:Name="gTweet" Grid.Row="1" Background="White" >
                     </Grid>
                 </Grid>
-                <Viewbox  Stretch="Uniform" Margin="0,0,0,10" x:Name="ZoomViewbox"  >
+                <Viewbox Stretch="Uniform" Margin="0,0,0,10" x:Name="ZoomViewbox">
                     <Grid x:Name="gridMap" MouseWheel="ZoomViewbox_MouseWheel">
                         <Grid.RenderTransform>
                             <ScaleTransform x:Name="stMap" ScaleX="1" ScaleY="1" />

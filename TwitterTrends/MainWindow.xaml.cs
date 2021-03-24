@@ -56,7 +56,7 @@ namespace TwitterTrends
             else
             {
                 if (stMap.ScaleX > 1 && stMap.ScaleY > 1)
-                {
+                {                    
                     stMap.ScaleX -= 0.2;
                     stMap.ScaleY -= 0.2;
                 }
@@ -74,6 +74,11 @@ namespace TwitterTrends
         private void FormWindow()
         {
             this.WindowState = WindowState.Maximized;
+        }
+
+        private void btnAddFile_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
