@@ -1,7 +1,4 @@
-﻿using GMap.NET;
-
-using GMap.NET.WindowsPresentation;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,7 +35,7 @@ namespace TwitterTrends
             InitializeComponent();
             StateChecker.GiveStates(map.states);
             //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
-            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/tweets2011.txt");
+            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/cali_tweets2014.txt");
             //Tweetparcer.AsyncParse(@"../../Files/tweets2011.txt");
             //ParseTw(@"../../Files/tweets2011.txt");
             //Tweetparcer.AsyncParse(@"../../Files/weekend_tweets2014.txt");
