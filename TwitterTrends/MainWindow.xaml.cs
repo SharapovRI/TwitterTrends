@@ -27,6 +27,7 @@ namespace TwitterTrends
         public MainWindow()
         {
             FormWindow();
+            FormMap();
             InitializeComponent();
             StateChecker.GiveStates(map.CurrentStates);
             //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
@@ -38,7 +39,7 @@ namespace TwitterTrends
             new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), map.CurrentStates, hashset);
             twitts1 = twitts;
             //Thread.Sleep(10000);
-            FormMap();
+            
             DrawMap();                       
         }
 
@@ -67,6 +68,7 @@ namespace TwitterTrends
                     {
                         polygon4.graphicalPolygon.Points.Add(new Point(coordinate.Y* map.YCOMPRESSION + map.YOFFSET, coordinate.X* map.XCOMPRESSION + map.XOFFSET));                        
                     }
+                    //var statesMood = map.CalculateStatesMood();
                     polygon4.graphicalPolygon.Stroke = Brushes.Black;
                     polygon4.graphicalPolygon.Fill = Brushes.Green;
                     gridMap.Children.Add(polygon4.graphicalPolygon);                    
@@ -104,7 +106,7 @@ namespace TwitterTrends
             map.YOFFSET = 2500;
             map.XOFFSET = 1500;
             map.CurrentTwitts = twitts1;
-            var statesMood = map.CalculateStatesMood();
+            
         }
         private void FormWindow()
         {
