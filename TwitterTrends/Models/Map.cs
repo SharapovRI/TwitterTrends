@@ -39,8 +39,7 @@ namespace TwitterTrends.Models
         {            
             Dictionary<string, float?> statesMood = new Dictionary<string, float?>();            
             for(int i = 0; i < currentStates.Count; i++ )
-            {
-                var t = CurrentTwitts.Where(t => t.idState == "NV").ToList();
+            {                
                 List<Twitt> twitts = CurrentTwitts.Where(t => t.idState == currentStates[i].StateId).ToList();
                 if(twitts.Where(t => t.weight == null).Count() == twitts.Count())
                 {
