@@ -31,13 +31,14 @@ namespace TwitterTrends
             InitializeComponent();
             StateChecker.GiveStates(map.CurrentStates);
             //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
-            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/cali_tweets2014.txt");
+            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/texas_tweets2014.txt");
             //Tweetparcer.AsyncParse(@"../../Files/tweets2011.txt");
             //ParseTw(@"../../Files/tweets2011.txt");
             //Tweetparcer.AsyncParse(@"../../Files/weekend_tweets2014.txt");
             //GetId(twitts1);
             new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), map.CurrentStates, hashset);
             twitts1 = twitts;
+            map.CurrentTwitts = twitts;
             //Thread.Sleep(10000);
             DrawMap();                       
         }
@@ -58,8 +59,8 @@ namespace TwitterTrends
         }
 
         public void DrawMap()
-        {            
-            var statesMood = map.CalculateStatesMood();
+        {
+            map.PaintStates();
             foreach (var state in map.CurrentStates)
             {                               
                 foreach (var polygon4 in state.Polygons)
@@ -70,7 +71,7 @@ namespace TwitterTrends
                     }
                     //var statesMood = map.CalculateStatesMood();
                     polygon4.graphicalPolygon.Stroke = Brushes.Black;
-                    polygon4.graphicalPolygon.Fill = Brushes.Green;
+                    
                     gridMap.Children.Add(polygon4.graphicalPolygon);                    
                 }
                 
