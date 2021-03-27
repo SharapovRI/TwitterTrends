@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace TwitterTrends.Models
 {
+    public class Map
     {
-
+        private static List<State> states = new List<State>();
         public static string GetState(Coordinate p)
         {
             foreach (var item in states)
