@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Win32;
+using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,13 +28,13 @@ namespace TwitterTrends
 
 
         public MainWindow()
-        {
+        {            
+            InitializeComponent();
             FormWindow();
             FormMap();
-            InitializeComponent();
             StateChecker.GiveStates(map.CurrentStates);
             //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
-            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/texas_tweets2014.txt");
+            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/Tweets/texas_tweets2014.txt");
             //Tweetparcer.AsyncParse(@"../../Files/tweets2011.txt");
             //ParseTw(@"../../Files/tweets2011.txt");
             //Tweetparcer.AsyncParse(@"../../Files/weekend_tweets2014.txt");
@@ -69,8 +71,7 @@ namespace TwitterTrends
                     foreach(var coordinate in polygon4.Coordinates)
                     {
                         polygon4.graphicalPolygon.Points.Add(new Point(coordinate.Y* map.YCOMPRESSION + map.YOFFSET, coordinate.X* map.XCOMPRESSION + map.XOFFSET));                        
-                    }
-                    //var statesMood = map.CalculateStatesMood();
+                    }                   
                     polygon4.graphicalPolygon.Stroke = Brushes.Black;
                     polygon4.graphicalPolygon.MouseEnter += new MouseEventHandler(SomeMethod);
 
@@ -122,6 +123,28 @@ namespace TwitterTrends
         private void FormWindow()
         {
             this.WindowState = WindowState.Maximized;
+            FormTreeView();
+        }
+        private void FormTreeView()
+        {
+            var TweetFiles = Directory.GetFiles(@"../../Files/Tweets");    
+            foreach(var file in TweetFiles)
+            {
+                tviChooseFile.Items.Add(file);
+            }
+        }
+        private void btnNewFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog()
+            {
+                Title = "Choose image",
+                Filter = "TXT|*.txt;",
+            };
+            if(ofd.ShowDialog() == true)
+            {
+                File.Copy(ofd.FileName, @"../../Files/Tweets/" + ofd.SafeFileName);
+                tviChooseFile.Items.Add(ofd.SafeFileName);
+            }
         }
     }
 }
