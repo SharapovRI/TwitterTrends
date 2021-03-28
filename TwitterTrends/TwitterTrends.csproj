@@ -125,15 +125,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Files\cali_tweets2014.txt" />
-    <Resource Include="Files\family_tweets2014.txt" />
-    <Resource Include="Files\football_tweets2014.txt" />
-    <Resource Include="Files\high_school_tweets2014.txt" />
-    <Resource Include="Files\movie_tweets2014.txt" />
-    <Resource Include="Files\shopping_tweets2014.txt" />
-    <Resource Include="Files\snow_tweets2014.txt" />
-    <Resource Include="Files\texas_tweets2014.txt" />
-    <Resource Include="Files\weekend_tweets2014.txt" />
+    <Resource Include="Files\Tweets\cali_tweets2014.txt" />
+    <Resource Include="Files\Tweets\family_tweets2014.txt" />
+    <Resource Include="Files\Tweets\football_tweets2014.txt" />
+    <Resource Include="Files\Tweets\high_school_tweets2014.txt" />
+    <Resource Include="Files\Tweets\movie_tweets2014.txt" />
+    <Resource Include="Files\Tweets\shopping_tweets2014.txt" />
+    <Resource Include="Files\Tweets\snow_tweets2014.txt" />
+    <Resource Include="Files\Tweets\texas_tweets2014.txt" />
+    <Resource Include="Files\Tweets\weekend_tweets2014.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

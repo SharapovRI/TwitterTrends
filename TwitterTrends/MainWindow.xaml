@@ -14,7 +14,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#fff"/>
-        <Grid Grid.Row="2">
+        <StackPanel Height="25" Orientation="Horizontal" Margin="3,0,0,0">
+            <Button x:Name="btnNewFile" Width="50" Content="Add File" Background="White" BorderBrush="White" Click="btnNewFile_Click"/>
+        </StackPanel>
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -27,7 +30,7 @@
                                     <EventTrigger.Actions>
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="Width" To="260"/>
+                                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="Width" To="340"/>
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </EventTrigger.Actions>
@@ -48,12 +51,8 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TreeView Width="250" Grid.Row="0" BorderBrush="White" HorizontalAlignment="Left">
-                        <TreeViewItem Header="Choose File" FontSize="14">
-                            <TreeViewItem Header="File 1" />
-                            <TreeViewItem Header="File 2" />
-                            <TreeViewItem Header="File 3" />
-                            <TreeViewItem Header="File 4" />
+                    <TreeView x:Name="tvFiles" Margin="2,0,0,0" Width="320" Grid.Row="0" BorderBrush="White" HorizontalAlignment="Left">
+                        <TreeViewItem x:Name="tviChooseFile" Header="Choose File" FontSize="14" >
                         </TreeViewItem>
                     </TreeView>
                     <Grid x:Name="gTweet" Grid.Row="1" Background="red">
