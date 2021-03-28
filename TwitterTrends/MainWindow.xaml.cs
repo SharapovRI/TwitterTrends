@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using TwitterTrends.Analize;
@@ -71,12 +72,22 @@ namespace TwitterTrends
                     }
                     //var statesMood = map.CalculateStatesMood();
                     polygon4.graphicalPolygon.Stroke = Brushes.Black;
-                    
+                    polygon4.graphicalPolygon.MouseEnter += new MouseEventHandler(SomeMethod);
+
                     gridMap.Children.Add(polygon4.graphicalPolygon);                    
                 }
                 
             }            
         }
+
+        private void SomeMethod(object sender, MouseEventArgs e)
+        {
+            //((System.Windows.Shapes.Polygon)sender).RenderSize = new Size(((System.Windows.Shapes.Polygon)sender).RenderSize.Width * 2, ((System.Windows.Shapes.Polygon)sender).RenderSize.Height * 2);
+            /*int i = gridMap.Children.IndexOf((System.Windows.Shapes.Polygon)sender);
+            gridMap.Children[i].RenderSize = new Size(((System.Windows.Shapes.Polygon)sender).RenderSize.Width + 200, ((System.Windows.Shapes.Polygon)sender).RenderSize.Height * 2);*/
+            ((System.Windows.Shapes.Polygon)sender).StrokeThickness = 8;
+        }
+
         private void ZoomViewbox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
             var position = e.GetPosition(gridMap);
