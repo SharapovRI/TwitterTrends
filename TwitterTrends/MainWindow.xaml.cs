@@ -20,45 +20,55 @@ namespace TwitterTrends
     public partial class MainWindow : Window
     {        
         private const string JSON_PATH = @"../../Files/states.json";
-        private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";       
+        private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";
         HashSet<string> hashset = new HashSet<string>();
         Map map = new Map();
-        private static List<Twitt> twitts1 = new List<Twitt>();
+        private static List<Tweet> twitts1 = new List<Tweet>();
 
 
 
         public MainWindow()
-        {            
+        {
             InitializeComponent();
             FormWindow();
             FormMap();
-            StateChecker.GiveStates(map.CurrentStates);
-            //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
-            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/Tweets/football_tweets2014.txt");
-            //Tweetparcer.AsyncParse(@"../../Files/tweets2011.txt");
-            //ParseTw(@"../../Files/tweets2011.txt");
-            //Tweetparcer.AsyncParse(@"../../Files/weekend_tweets2014.txt");
-            //GetId(twitts1);
-            new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), map.CurrentStates, hashset);
-            twitts1 = twitts;
-            map.CurrentTwitts = twitts;
-            //Thread.Sleep(10000);
-            DrawMap();                     
+            StateChecker.GiveStates(map.CurrentStates);           
+            List<Tweet> twitts = Tweetparcer.Twittparce(@"../../Files/Tweets/football_tweets2014.txt");
+            new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), hashset);
+            map.CurrentTweets = twitts;
+            DrawMap();
         }
+
+        //public MainWindow()
+        //{
+        //    InitializeComponent();
+        //    FormWindow();
+        //    FormMap();
+        //    StateChecker.GiveStates(map.CurrentStates);
+        //    //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
+        //    List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/Tweets/football_tweets2014.txt");
+        //    //Tweetparcer.AsyncParse(@"../../Files/tweets2011.txt");
+        //    //ParseTw(@"../../Files/tweets2011.txt");
+        //    //Tweetparcer.AsyncParse(@"../../Files/weekend_tweets2014.txt");
+        //    //GetId(twitts1);
+        //    new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), hashset);
+        //    map.CurrentTwitts = twitts;
+        //    DrawMap();
+        //}
 
         public async Task ParseTw(string path)
         {
             var result = Task.Run(async () => { return await Tweetparcer.AsyncParse(path); }).Result;
         }
 
-        internal static void GiveTwitts(List<Twitt> twitts)
+        internal static void GiveTwitts(List<Tweet> tweets)
         {
-            twitts1 = twitts;
+            twitts1 = tweets;
         }
 
-        async private void GetId(List<Twitt> twitts)
+        async private void GetId(List<Tweet> tweets)
         {
-            await Task.Run(() => StateChecker.AsyncFromTweets(twitts));
+            await Task.Run(() => StateChecker.AsyncFromTweets(tweets));
         }
 
         public void DrawMap()
@@ -71,32 +81,35 @@ namespace TwitterTrends
             map.PaintStates();
             foreach (var state in map.CurrentStates)
             {                               
-                foreach (var polygon4 in state.Polygons)
-                {                                                         
-                    foreach(var coordinate in polygon4.Coordinates)
+                foreach (var polygon in state.Polygons)
+                {
+                    System.Windows.Shapes.Polygon currentPolygon = new System.Windows.Shapes.Polygon();
+                    foreach (var coordinate in polygon.Coordinates)
                     {
-                        polygon4.graphicalPolygon.Points.Add(new Point(coordinate.Y* map.YCOMPRESSION + map.YOFFSET, coordinate.X* map.XCOMPRESSION + map.XOFFSET));                        
+                        currentPolygon.Points.Add(new Point(coordinate.Y * map.YCOMPRESSION + map.YOFFSET, coordinate.X * map.XCOMPRESSION + map.XOFFSET));                                                
                     }                   
-                    polygon4.graphicalPolygon.Stroke = Brushes.Black;
-                    polygon4.graphicalPolygon.MouseEnter += new MouseEventHandler(SomeMethod);
-
-                    gridMap.Children.Add(polygon4.graphicalPolygon);                    
+                    currentPolygon.Stroke = Brushes.Black;
+                    currentPolygon.StrokeThickness = 0.4;
+                    currentPolygon.Fill = state.Color;
+                    gridMap.Children.Add(currentPolygon);                    
                 }                
             }            
         }
         public void DrawTweets()
         {
             map.PaintTweets();
-            foreach(var t  in map.CurrentTwitts)
+            foreach(var t  in map.CurrentTweets)
             {
                 System.Windows.Shapes.Polygon polygon = new System.Windows.Shapes.Polygon();
-                if (t.weight == null)
+                if (t.Weight == null)
                     continue;
-                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET+5, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET+5));
-                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET+5, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET-5));
-                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET-5, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET-5));
-                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET-5, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET+5));
-                polygon.Fill = Brushes.Coral                    ;
+                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET+2, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET+ 2));
+                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET+ 2, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET- 2));
+                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET- 2, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET- 2));
+                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET- 2, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET+ 2));
+                polygon.Stroke = Brushes.Black;
+                polygon.StrokeThickness = 0.1;
+                polygon.Fill = t.Color;
                 gridMap.Children.Add(polygon);
             }
         }
@@ -138,7 +151,7 @@ namespace TwitterTrends
             map.XCOMPRESSION = -20;
             map.YOFFSET = 2500;
             map.XOFFSET = 1500;
-            map.CurrentTwitts = twitts1;
+            map.CurrentTweets = twitts1;
         }
         private void FormWindow()
         {

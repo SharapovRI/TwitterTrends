@@ -61,6 +61,7 @@
                 </Grid>
                 <Viewbox Stretch="Uniform" Margin="0,0,0,10" x:Name="ZoomViewbox" >
                     <Grid x:Name="gridMap" MouseWheel="ZoomViewbox_MouseWheel">
+                        <TextBlock />
                         <Grid.RenderTransform>
                             <ScaleTransform x:Name="stMap" ScaleX="1" ScaleY="1" />
                         </Grid.RenderTransform>
