@@ -34,7 +34,7 @@ namespace TwitterTrends
             FormMap();
             StateChecker.GiveStates(map.CurrentStates);
             //List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/weekend_tweets2014.txt");
-            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/Tweets/texas_tweets2014.txt");
+            List<Twitt> twitts = Tweetparcer.Twittparce(@"../../Files/Tweets/football_tweets2014.txt");
             //Tweetparcer.AsyncParse(@"../../Files/tweets2011.txt");
             //ParseTw(@"../../Files/tweets2011.txt");
             //Tweetparcer.AsyncParse(@"../../Files/weekend_tweets2014.txt");
@@ -43,7 +43,7 @@ namespace TwitterTrends
             twitts1 = twitts;
             map.CurrentTwitts = twitts;
             //Thread.Sleep(10000);
-            DrawMap();                       
+            DrawMap();                     
         }
 
         public async Task ParseTw(string path)
@@ -63,6 +63,11 @@ namespace TwitterTrends
 
         public void DrawMap()
         {
+            DrawStates();
+            DrawTweets();
+        }
+        public void DrawStates()
+        {
             map.PaintStates();
             foreach (var state in map.CurrentStates)
             {                               
@@ -76,9 +81,24 @@ namespace TwitterTrends
                     polygon4.graphicalPolygon.MouseEnter += new MouseEventHandler(SomeMethod);
 
                     gridMap.Children.Add(polygon4.graphicalPolygon);                    
-                }
-                
+                }                
             }            
+        }
+        public void DrawTweets()
+        {
+            map.PaintTweets();
+            foreach(var t  in map.CurrentTwitts)
+            {
+                System.Windows.Shapes.Polygon polygon = new System.Windows.Shapes.Polygon();
+                if (t.weight == null)
+                    continue;
+                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET+5, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET+5));
+                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET+5, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET-5));
+                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET-5, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET-5));
+                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET-5, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET+5));
+                polygon.Fill = Brushes.Coral                    ;
+                gridMap.Children.Add(polygon);
+            }
         }
 
         private void SomeMethod(object sender, MouseEventArgs e)
