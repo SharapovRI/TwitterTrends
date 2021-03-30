@@ -1,10 +1,12 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using TwitterTrends.Analize;
@@ -153,7 +155,10 @@ namespace TwitterTrends
             var TweetFiles = Directory.GetFiles(@"../../Files/Tweets");    
             foreach(var file in TweetFiles)
             {
-                tviChooseFile.Items.Add(file);
+                TreeViewItem new_item = new TreeViewItem();
+                new_item.Header = file;
+                tviChooseFile.Items.Add(new_item);
+                new_item.Selected += Item_Selected;
             }
         }
         private void btnNewFile_Click(object sender, RoutedEventArgs e)
@@ -166,8 +171,22 @@ namespace TwitterTrends
             if(ofd.ShowDialog() == true)
             {
                 File.Copy(ofd.FileName, @"../../Files/Tweets/" + ofd.SafeFileName);
-                tviChooseFile.Items.Add(ofd.SafeFileName);
+                TreeViewItem new_item = new TreeViewItem();
+                new_item.Header = ofd.SafeFileName;
+                tviChooseFile.Items.Add(new_item);
             }
+        }
+
+        private void Item_Selected(object sender, RoutedEventArgs e)
+        {
+            string new_filename;
+            TreeViewItem selectedItem = (TreeViewItem)tvFiles.SelectedItem;
+            new_filename = selectedItem.Header.ToString();
+            gridMap.Children.Clear();
+            List<Tweet> twitts = Tweetparcer.Twittparce(new_filename);
+            new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), hashset);
+            map.CurrentTweets = twitts;
+            DrawMap();
         }
     }
 }

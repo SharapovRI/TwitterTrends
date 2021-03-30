@@ -51,8 +51,8 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TreeView x:Name="tvFiles" Margin="2,0,0,0" Width="320" Grid.Row="0" BorderBrush="White" HorizontalAlignment="Left">
-                        <TreeViewItem x:Name="tviChooseFile" Header="Choose File" FontSize="14" >
+                    <TreeView x:Name="tvFiles" Margin="2,0,0,0" Width="320" Grid.Row="0" BorderBrush="White" HorizontalAlignment="Left" >
+                        <TreeViewItem x:Name="tviChooseFile" Header="Choose File" FontSize="14">
                         </TreeViewItem>
                     </TreeView>
                     <Grid x:Name="gTweet" Grid.Row="1" Background="red">
