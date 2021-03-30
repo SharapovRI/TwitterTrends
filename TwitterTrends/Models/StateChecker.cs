@@ -32,7 +32,12 @@ namespace TwitterTrends.Models
             }
             return "UNKNOWN";
         }
+        private static bool isNearState(Polygon polygon, Coordinate p)
+        {
+            bool res = false;
 
+            return res;
+        }
         private static bool isInside(Polygon polygon, Coordinate p)
         {
             int count = polygon.Coordinates.Count;
