@@ -6,24 +6,26 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace TwitterTrends.Models
 {
-    public class Twitt
+    public class Tweet
     {
-        public Twitt(Coordinate coordinate, DateTime dateTime, string text)
+        public Tweet(Coordinate coordinate, DateTime dateTime, string text)
         {
             TwittCoordinate = coordinate;
             DateTime = dateTime;
             Text = text;
-            idState = StateChecker.GetState(TwittCoordinate);
+            StateId = StateChecker.GetState(TwittCoordinate);
             //GetIdStateAsync(coordinate);
         }
         public Coordinate TwittCoordinate;
         DateTime DateTime;
         public string Text;
-        public string idState;
-        public float? weight;
+        public string StateId;
+        public float? Weight;
+        public Brush Color;
         /*async private void GetIdStateAsync(Coordinate coordinates)
         {
             Action action;

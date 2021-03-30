@@ -10,11 +10,11 @@ namespace TwitterTrends.Models
     {
         static List<State> states = new List<State>();
 
-        public static void AsyncFromTweets(List<Twitt> twitts)
+        public static void AsyncFromTweets(List<Tweet> twitts)
         {
             foreach (var item in twitts)
             {
-                item.idState = GetState(item.TwittCoordinate);
+                item.StateId = GetState(item.TwittCoordinate);
             }
         }
 
@@ -38,7 +38,7 @@ namespace TwitterTrends.Models
             int count = polygon.Coordinates.Count;
             if (count < 3) return false;
             bool res = false;
-            if (p.Y > polygon.min_lat && p.Y < polygon.max_lat && p.X > polygon.min_lng && p.X < polygon.max_lng) {
+            if (p.Y > polygon.Min_lat && p.Y < polygon.Max_lat && p.X > polygon.Min_lng && p.X < polygon.Max_lng) {
                 for (int i = 0, j = count - 1; i < count; i++)
                 {
                     var p1 = polygon.Coordinates[i];

@@ -13,9 +13,9 @@ namespace TwitterTrends.Analize
     {
         Hashtable hashtable;
         HashSet<string> hashset;
-        List<Twitt> twitts;
+        List<Tweet> twitts;
 
-        public Searching(List<Twitt> twitts, Hashtable hashtable, List<State> states, HashSet<string> hashset)
+        public Searching(List<Tweet> twitts, Hashtable hashtable, HashSet<string> hashset)
         {
             this.twitts = twitts;               //твиты в которых есть текст
             this.hashtable = hashtable;         //хештаблица
@@ -26,11 +26,11 @@ namespace TwitterTrends.Analize
                 /*var state = states.FindAll(u => u.StateId == item.idState).FirstOrDefault();
                 if (state != null)
                 {*/
-                if (item.weight != null)
+                if (item.Weight != null)
                 {
-                    item.weight += CheckSame(item.Text.ToLower());
+                    item.Weight += CheckSame(item.Text.ToLower());
                 }
-                else item.weight = CheckSame(item.Text.ToLower());
+                else item.Weight = CheckSame(item.Text.ToLower());
                 //}
             }
         }

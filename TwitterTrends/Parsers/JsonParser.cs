@@ -33,21 +33,21 @@ namespace TwitterTrends.Parsers
                             float x = float.Parse(crdn.Last.ToString().Replace('.', ','));
                             Coordinate coordinate = new Coordinate(x, y);
                             polygon.Coordinates.Add(coordinate);
-                            if (polygon.max_lat < y)
+                            if (polygon.Max_lat < y)
                             {
-                                polygon.max_lat = y;
+                                polygon.Max_lat = y;
                             }
-                            if (polygon.min_lat > y)
+                            if (polygon.Min_lat > y)
                             {
-                                polygon.min_lat = y;
+                                polygon.Min_lat = y;
                             }
-                            if (polygon.max_lng < x)
+                            if (polygon.Max_lng < x)
                             {
-                                polygon.max_lng = x;
+                                polygon.Max_lng = x;
                             }
-                            if (polygon.min_lng > x)
+                            if (polygon.Min_lng > x)
                             {
-                                polygon.min_lng = x;
+                                polygon.Min_lng = x;
                             }
 
                         }

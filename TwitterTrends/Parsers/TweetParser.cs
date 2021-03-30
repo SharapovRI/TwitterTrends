@@ -12,10 +12,10 @@ namespace TwitterTrends.Parsers
 {
     class Tweetparcer
     {
-        public static List<Twitt> twitts = new List<Twitt>();
+        public static List<Tweet> twitts = new List<Tweet>();
         async public static Task<int> AsyncParse(string path)
         {
-            List<Twitt> tweet = new List<Twitt>();
+            List<Tweet> tweet = new List<Tweet>();
             string line;
             using (StreamReader reader = new StreamReader(path, true))
             {
@@ -40,10 +40,9 @@ namespace TwitterTrends.Parsers
             return 0;
         }
 
-
-        public static List<Twitt> Twittparce(string path)
+        public static List<Tweet> Twittparce(string path)
         {
-            List<Twitt> tweet = new List<Twitt>();
+            List<Tweet> tweet = new List<Tweet>();
             string line;
             using (StreamReader reader = new StreamReader(path, true))
             {
@@ -60,7 +59,7 @@ namespace TwitterTrends.Parsers
                     if (latlong.Length == 2)
                     {
                         Coordinate coordinate1 = new Coordinate(Convert.ToSingle(latlong[0].Replace('.', ',')), Convert.ToSingle(latlong[1].Replace('.', ',')));
-                        tweet.Add(new Twitt(coordinate1, Convert.ToDateTime(fourParts[2]), fourParts[3]));
+                        tweet.Add(new Tweet(coordinate1, Convert.ToDateTime(fourParts[2]), fourParts[3]));
                     }
                 }
             }
@@ -69,7 +68,7 @@ namespace TwitterTrends.Parsers
 
         public static void Twittparce(List<string> path)
         {
-            List<Twitt> tweet1 = new List<Twitt>();
+            List<Tweet> tweet1 = new List<Tweet>();
                 foreach (string line in path)
                 {
                     var fourParts = line.Split('\t');
@@ -83,7 +82,7 @@ namespace TwitterTrends.Parsers
                     if (latlong.Length == 2)
                     {
                         Coordinate coordinate1 = new Coordinate(Convert.ToSingle(latlong[0].Replace('.', ',')), Convert.ToSingle(latlong[1].Replace('.', ',')));
-                        tweet1.Add(new Twitt(coordinate1, Convert.ToDateTime(fourParts[2]), fourParts[3]));
+                        tweet1.Add(new Tweet(coordinate1, Convert.ToDateTime(fourParts[2]), fourParts[3]));
                     }
                 }
             Action action;
