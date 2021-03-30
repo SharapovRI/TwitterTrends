@@ -16,7 +16,7 @@ namespace TwitterTrends.Models
         public float YOFFSET;
         public float XOFFSET;        
         
-        public float? currentMood;
+        
 
 
         //метод который будт считать настроянния всех штатаов и расскрашивать их(либо могу сделать отдельный метод, который считает и отдельный который разукрашивает, я думаю это будет правильней)
@@ -94,6 +94,9 @@ namespace TwitterTrends.Models
                 return new SolidColorBrush(Color.FromRgb(0, (byte)rgbValue, 255));
             }
         }
+        public void PaintTweets()
+        {
 
+        }
     }
 }
