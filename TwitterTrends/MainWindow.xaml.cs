@@ -23,8 +23,8 @@ namespace TwitterTrends
     {        
         private const string JSON_PATH = @"../../Files/states.json";
         private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";
-        HashSet<string> hashset = new HashSet<string>();
         Map map = new Map();
+        HashSet<string> hashset = new HashSet<string>();
         private static List<Tweet> twitts1 = new List<Tweet>();
 
 
@@ -36,7 +36,8 @@ namespace TwitterTrends
             FormMap();
             StateChecker.GiveStates(map.CurrentStates);           
             List<Tweet> twitts = Tweetparcer.Twittparce(@"../../Files/Tweets/football_tweets2014.txt");
-            new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), hashset);
+            var hashtable = SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset);
+            new Searching(twitts, hashtable, this.hashset);
             map.CurrentTweets = twitts;
             DrawMap();
         }
@@ -56,23 +57,13 @@ namespace TwitterTrends
         //    new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), hashset);
         //    map.CurrentTwitts = twitts;
         //    DrawMap();
-        //}
-
-        public async Task ParseTw(string path)
-        {
-            var result = Task.Run(async () => { return await Tweetparcer.AsyncParse(path); }).Result;
-        }
+        //}        
 
         internal static void GiveTwitts(List<Tweet> tweets)
         {
             twitts1 = tweets;
         }
-
-        async private void GetId(List<Tweet> tweets)
-        {
-            await Task.Run(() => StateChecker.AsyncFromTweets(tweets));
-        }
-
+        
         public void DrawMap()
         {
             DrawStates();

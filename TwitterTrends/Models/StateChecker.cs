@@ -9,15 +9,6 @@ namespace TwitterTrends.Models
     class StateChecker
     {
         static List<State> states = new List<State>();
-
-        public static void AsyncFromTweets(List<Tweet> twitts)
-        {
-            foreach (var item in twitts)
-            {
-                item.StateId = GetState(item.TwittCoordinate);
-            }
-        }
-
         public static string GetState(Coordinate p)
         {
             foreach (var item in states)
