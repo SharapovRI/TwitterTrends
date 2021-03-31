@@ -76,7 +76,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Analize\Searching.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -87,15 +86,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Coordinate.cs" />
-    <Compile Include="Models\StateChecker.cs" />
-    <Compile Include="Models\Polygon.cs" />
-    <Compile Include="Models\State.cs" />
-    <Compile Include="Models\Tweet.cs" />
-    <Compile Include="Models\Map.cs" />
-    <Compile Include="Parsers\JsonParser.cs" />
-    <Compile Include="Parsers\SantimentsParser.cs" />
-    <Compile Include="Parsers\TweetParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -113,8 +103,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Files\sentiments.csv" />
-    <None Include="Files\states.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -125,15 +113,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Files\Tweets\cali_tweets2014.txt" />
-    <Resource Include="Files\Tweets\family_tweets2014.txt" />
-    <Resource Include="Files\Tweets\football_tweets2014.txt" />
-    <Resource Include="Files\Tweets\high_school_tweets2014.txt" />
-    <Resource Include="Files\Tweets\movie_tweets2014.txt" />
-    <Resource Include="Files\Tweets\shopping_tweets2014.txt" />
-    <Resource Include="Files\Tweets\snow_tweets2014.txt" />
-    <Resource Include="Files\Tweets\texas_tweets2014.txt" />
-    <Resource Include="Files\Tweets\weekend_tweets2014.txt" />
+    <ProjectReference Include="..\BusinessObjects\BusinessObjects.csproj">
+      <Project>{b6280ef2-f990-4194-bc77-a57479439c06}</Project>
+      <Name>BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataObjects\DataObjects.csproj">
+      <Project>{7284bfd8-0612-4d5c-8807-0aa799a986f6}</Project>
+      <Name>DataObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceAction\ServiceAction.csproj">
+      <Project>{c9d74127-7f21-42d1-8870-283361f663fa}</Project>
+      <Name>ServiceAction</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

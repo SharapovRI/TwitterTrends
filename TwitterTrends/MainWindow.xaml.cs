@@ -10,9 +10,12 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using TwitterTrends.Analize;
-using TwitterTrends.Models;
 using TwitterTrends.Parsers;
 using System.Windows.Input;
+using ServiceAction;
+using BusinessObjects;
+using DataObjects;
+using TwitterTrends.Models;
 
 namespace TwitterTrends
 {
@@ -21,8 +24,8 @@ namespace TwitterTrends
     /// </summary>
     public partial class MainWindow : Window
     {        
-        private const string JSON_PATH = @"../../Files/states.json";
-        private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";
+        private const string JSON_PATH = @"../../../DataObjects/Files/states.json";
+        private const string SENTIMENTS_PATH = @"../../../DataObjects/Files/sentiments.csv";
         Map map = Map.getInstance();
 
 
@@ -138,7 +141,7 @@ namespace TwitterTrends
             map.XCOMPRESSION = -20;
             map.YOFFSET = 2500;
             map.XOFFSET = 1500;
-            map.CurrentTweets = Tweetparcer.Twittparce(@"../../Files/Tweets/football_tweets2014.txt");
+            map.CurrentTweets = Tweetparcer.Twittparce(@"../../../DataObjects/Files/Tweets/football_tweets2014.txt");
         }
         private void FormWindow()
         {
@@ -147,7 +150,7 @@ namespace TwitterTrends
         }
         private void FormTreeView()
         {
-            var TweetFiles = Directory.GetFiles(@"../../Files/Tweets");    
+            var TweetFiles = Directory.GetFiles(@"../../../DataObjects/Files/Tweets");    
             foreach(var file in TweetFiles)
             {
                 TreeViewItem new_item = new TreeViewItem();
@@ -165,7 +168,7 @@ namespace TwitterTrends
             };
             if(ofd.ShowDialog() == true)
             {
-                File.Copy(ofd.FileName, @"../../Files/Tweets/" + ofd.SafeFileName);
+                File.Copy(ofd.FileName, @"../../../DataObjects/Files/Tweets/" + ofd.SafeFileName);
                 TreeViewItem new_item = new TreeViewItem();
                 new_item.Header = ofd.SafeFileName;
                 tviChooseFile.Items.Add(new_item);

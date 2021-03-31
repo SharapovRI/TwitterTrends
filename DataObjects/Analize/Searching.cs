@@ -9,7 +9,7 @@ using TwitterTrends.Models;
 
 namespace TwitterTrends.Analize
 {
-    class Searching
+    public class Searching
     {
         Hashtable hashtable;
         HashSet<string> hashset;

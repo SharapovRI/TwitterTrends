@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7CCA7FE9-6C2A-43BA-A1A6-A023987A7E7A}</ProjectGuid>
+    <ProjectGuid>{B6280EF2-F990-4194-BC77-A57479439C06}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BusinessObjects</RootNamespace>
@@ -42,15 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class2.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Models\Polygon.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\StateChecker.cs" />
-    <Compile Include="Models\Twitt.cs" />
+    <Compile Include="Models\Tweet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,12 +5,12 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Threading;
+using BusinessObjects;
 using TwitterTrends.Models;
 
 namespace TwitterTrends.Parsers
 {
-    class Tweetparcer
+    public class Tweetparcer
     {
         public static List<Tweet> twitts = new List<Tweet>();
 

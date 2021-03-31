@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2344894B-7E3E-4235-867E-4D8CF56F1245}</ProjectGuid>
+    <ProjectGuid>{7284BFD8-0612-4D5C-8807-0AA799A986F6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataObjects</RootNamespace>
@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,39 +45,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analize\Searching.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Parsers\JsonParser.cs" />
+    <Compile Include="Parsers\SantimentsParser.cs" />
+    <Compile Include="Parsers\TweetParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Files\cali_tweets2014.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Files\family_tweets2014.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Files\football_tweets2014.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Files\high_school_tweets2014.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Files\movie_tweets2014.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Files\sentiments.csv" />
     <None Include="Files\states.json" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Files\shopping_tweets2014.txt" />
+    <Resource Include="Files\Tweets\cali_tweets2014.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Files\snow_tweets2014.txt" />
+    <Resource Include="Files\Tweets\family_tweets2014.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Files\texas_tweets2014.txt" />
+    <Resource Include="Files\Tweets\football_tweets2014.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Files\weekend_tweets2014.txt" />
+    <Resource Include="Files\Tweets\high_school_tweets2014.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Files\Tweets\movie_tweets2014.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Files\Tweets\shopping_tweets2014.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Files\Tweets\snow_tweets2014.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Files\Tweets\texas_tweets2014.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Files\Tweets\weekend_tweets2014.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessObjects\BusinessObjects.csproj">
+      <Project>{b6280ef2-f990-4194-bc77-a57479439c06}</Project>
+      <Name>BusinessObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
