@@ -27,7 +27,7 @@ namespace TwitterTrends
         private const string JSON_PATH = @"../../../DataObjects/Files/states.json";
         private const string SENTIMENTS_PATH = @"../../../DataObjects/Files/sentiments.csv";
         private const string DEFAULT_TWEETS_PATH = @"../../../DataObjects/Files/Tweets/football_tweets2014.txt";
-        Map map = Map.getInstance();
+        Map map = Map.GetInstance();
         static Service service = new Service();
 
 

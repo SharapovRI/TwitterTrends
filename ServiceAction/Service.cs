@@ -15,27 +15,27 @@ namespace ServiceAction
         static readonly IDataDao dataDao = new DataDao();
         public List<State> GetStates()
         {
-            return Map.getInstance().CurrentStates;
+            return Map.GetInstance().CurrentStates;
         }
 
         public List<Tweet> GetTweets()
         {
-            return Map.getInstance().CurrentTweets;
+            return Map.GetInstance().CurrentTweets;
         }
 
         public void PaintStates()
         {
-            Map.getInstance().PaintStates();
+            Map.GetInstance().PaintStates();
         }
 
         public void PaintTweets()
         {
-            Map.getInstance().PaintTweets();
+            Map.GetInstance().PaintTweets();
         }
 
         public void FormMap(string JSON_PATH, int YComp, int XComp, int YOffset, int XOffset)
         {
-            Map map = Map.getInstance();
+            Map map = Map.GetInstance();
             map.CurrentStates = dataDao.ParseStates(JSON_PATH);
             map.YCOMPRESSION = YComp;
             map.XCOMPRESSION = XComp;
@@ -47,7 +47,7 @@ namespace ServiceAction
         public void AnalizeTweets(string TWEETS_PATH)
         {
             string SENTIMENTS_PATH = @"../../../DataObjects/Files/sentiments.csv";
-            Map map = Map.getInstance();
+            Map map = Map.GetInstance();
 
             map.CurrentTweets = dataDao.Twittparce(TWEETS_PATH);
             HashSet<string> hashset = new HashSet<string>();

@@ -11,7 +11,7 @@ namespace TwitterTrends.Models
     public class Map
     {
         private static Map instance;
-        public static Map getInstance()
+        public static Map GetInstance()
         {
             if (instance == null)
                 instance = new Map();

@@ -10,7 +10,7 @@ namespace TwitterTrends.Models
     {
         public static string GetState(Coordinate p)
         {
-            foreach (var item in Map.getInstance().CurrentStates)
+            foreach (var item in Map.GetInstance().CurrentStates)
             {
                 foreach (var jtem in item.Polygons)
                 {
