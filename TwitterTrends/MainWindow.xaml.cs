@@ -84,10 +84,22 @@ namespace TwitterTrends
                     currentPolygon.Stroke = Brushes.Black;
                     currentPolygon.StrokeThickness = 0.4;
                     currentPolygon.Fill = state.Color;
+                    currentPolygon.Name = state.StateId;
+                    currentPolygon.MouseEnter += CurrentPolygon_MouseEnter;
                     gridMap.Children.Add(currentPolygon);                    
                 }                
             }            
         }
+
+        private void CurrentPolygon_MouseEnter(object sender, MouseEventArgs e)
+        {
+            /*Point point = Mouse.GetPosition((System.Windows.Shapes.Polygon)sender);
+            float Y = (Convert.ToSingle(point.X) - map.YOFFSET) / map.YCOMPRESSION;
+            float X = (Convert.ToSingle(point.Y) - map.XOFFSET) / map.XCOMPRESSION;
+            string state = StateChecker.GetState(new Coordinate(X, Y));*/
+            ((System.Windows.Shapes.Polygon)sender).ToolTip = ((System.Windows.Shapes.Polygon)sender).Name;
+        }
+
         public void DrawTweets()
         {
             map.PaintTweets();
