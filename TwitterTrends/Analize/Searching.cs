@@ -49,10 +49,10 @@ namespace TwitterTrends.Analize
                 int i = 0;
                 while (i < words.Length)
                 {
-                    if (isWeightNull && weight != 0)
+                    /*if (isWeightNull && weight != 0)
                     {
                         isWeightNull = false;
-                    }
+                    }*/
                     comp = words[i];
 
                     if (string.IsNullOrWhiteSpace(comp))
@@ -66,6 +66,11 @@ namespace TwitterTrends.Analize
                     }
                     weight += FindSame(comp, words, ref i);
                     i++;
+                }
+
+                if (isWeightNull && weight != 0)
+                {
+                    isWeightNull = false;
                 }
             }
 
@@ -85,18 +90,22 @@ namespace TwitterTrends.Analize
                 mostClose = comp;
             }
 
-            while (comp.Length > 0 && !string.IsNullOrWhiteSpace(comp) && i < text.Length - 1)
+            while (comp.Length > 0 && !string.IsNullOrWhiteSpace(comp))
             {
                 if (hashtable.ContainsKey(comp))
                 {
                     mostClose = comp;
                     lenght = i;
                 }
-                comp += ' ' + text[++i];
-                if (!hashset.Contains(text[i]))
+                if (++i < text.Length)
                 {
-                    break;
+                    comp += ' ' + text[i];
+                    if (!hashset.Contains(text[i]))
+                    {
+                        break;
+                    }
                 }
+                else break;
             }
 
             return Convert.ToSingle(hashtable[mostClose]);
