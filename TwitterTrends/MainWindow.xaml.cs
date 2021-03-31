@@ -23,9 +23,8 @@ namespace TwitterTrends
     {        
         private const string JSON_PATH = @"../../Files/states.json";
         private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";
-        Map map = new Map();
+        Map map = Map.getInstance();
         HashSet<string> hashset = new HashSet<string>();
-        private static List<Tweet> twitts1 = new List<Tweet>();
 
 
 
@@ -34,11 +33,9 @@ namespace TwitterTrends
             InitializeComponent();
             FormWindow();
             FormMap();
-            StateChecker.GiveStates(map.CurrentStates);           
-            List<Tweet> twitts = Tweetparcer.Twittparce(@"../../Files/Tweets/football_tweets2014.txt");
+            //map.CurrentTweets = Tweetparcer.Twittparce(@"../../Files/Tweets/football_tweets2014.txt");
             var hashtable = SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset);
-            new Searching(twitts, hashtable, this.hashset);
-            map.CurrentTweets = twitts;
+            new Searching(map.CurrentTweets, hashtable, this.hashset);
             DrawMap();
         }
 
@@ -57,12 +54,7 @@ namespace TwitterTrends
         //    new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), hashset);
         //    map.CurrentTwitts = twitts;
         //    DrawMap();
-        //}        
-
-        internal static void GiveTwitts(List<Tweet> tweets)
-        {
-            twitts1 = tweets;
-        }
+        //}    
         
         public void DrawMap()
         {
@@ -156,7 +148,7 @@ namespace TwitterTrends
             map.XCOMPRESSION = -20;
             map.YOFFSET = 2500;
             map.XOFFSET = 1500;
-            map.CurrentTweets = twitts1;
+            map.CurrentTweets = Tweetparcer.Twittparce(@"../../Files/Tweets/football_tweets2014.txt");
         }
         private void FormWindow()
         {

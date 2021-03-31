@@ -8,10 +8,9 @@ namespace TwitterTrends.Models
 {
     class StateChecker
     {
-        static List<State> states = new List<State>();
         public static string GetState(Coordinate p)
         {
-            foreach (var item in states)
+            foreach (var item in Map.getInstance().CurrentStates)
             {
                 foreach (var jtem in item.Polygons)
                 {
@@ -50,11 +49,6 @@ namespace TwitterTrends.Models
                 }
             }
             return res;
-        }
-
-        public static void GiveStates(List<State> stateList)
-        {
-            states = stateList;
         }
     }
 
