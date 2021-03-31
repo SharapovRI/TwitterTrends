@@ -24,8 +24,6 @@ namespace TwitterTrends
         private const string JSON_PATH = @"../../Files/states.json";
         private const string SENTIMENTS_PATH = @"../../Files/sentiments.csv";
         Map map = Map.getInstance();
-        HashSet<string> hashset = new HashSet<string>();
-
 
 
         public MainWindow()
@@ -33,9 +31,10 @@ namespace TwitterTrends
             InitializeComponent();
             FormWindow();
             FormMap();
+            HashSet<string> hashset = new HashSet<string>();
             //map.CurrentTweets = Tweetparcer.Twittparce(@"../../Files/Tweets/football_tweets2014.txt");
             var hashtable = SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset);
-            new Searching(map.CurrentTweets, hashtable, this.hashset);
+            new Searching(map.CurrentTweets, hashtable, hashset);
             DrawMap();
         }
 
@@ -188,6 +187,7 @@ namespace TwitterTrends
             TreeViewItem selectedItem = (TreeViewItem)tvFiles.SelectedItem;
             new_filename = selectedItem.Header.ToString();
             gridMap.Children.Clear();
+            HashSet<string> hashset = new HashSet<string>();
             List<Tweet> twitts = Tweetparcer.Twittparce(new_filename);
             new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), hashset);
             map.CurrentTweets = twitts;
