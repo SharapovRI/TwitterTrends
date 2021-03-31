@@ -32,7 +32,6 @@ namespace TwitterTrends
             FormWindow();
             FormMap();
             HashSet<string> hashset = new HashSet<string>();
-            //map.CurrentTweets = Tweetparcer.Twittparce(@"../../Files/Tweets/football_tweets2014.txt");
             var hashtable = SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset);
             new Searching(map.CurrentTweets, hashtable, hashset);
             DrawMap();
@@ -108,14 +107,6 @@ namespace TwitterTrends
                 polygon.Fill = t.Color;
                 gridMap.Children.Add(polygon);
             }
-        }
-
-        private void SomeMethod(object sender, MouseEventArgs e)
-        {
-            //((System.Windows.Shapes.Polygon)sender).RenderSize = new Size(((System.Windows.Shapes.Polygon)sender).RenderSize.Width * 2, ((System.Windows.Shapes.Polygon)sender).RenderSize.Height * 2);
-            /*int i = gridMap.Children.IndexOf((System.Windows.Shapes.Polygon)sender);
-            gridMap.Children[i].RenderSize = new Size(((System.Windows.Shapes.Polygon)sender).RenderSize.Width + 200, ((System.Windows.Shapes.Polygon)sender).RenderSize.Height * 2);*/
-            ((System.Windows.Shapes.Polygon)sender).StrokeThickness = 8;
         }
 
         private void ZoomViewbox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
