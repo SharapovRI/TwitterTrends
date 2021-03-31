@@ -7,7 +7,7 @@ namespace TwitterTrends.Parsers
 {
     public static class JsonParser
     {
-        public static List<State> ParseStates(string pathToFile)
+        internal static List<State> ParseStates(string pathToFile)
         {
             string jsonString;
             using (StreamReader sr = new StreamReader(pathToFile))

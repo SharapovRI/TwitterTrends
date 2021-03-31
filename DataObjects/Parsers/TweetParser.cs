@@ -12,9 +12,7 @@ namespace TwitterTrends.Parsers
 {
     public class Tweetparcer
     {
-        public static List<Tweet> twitts = new List<Tweet>();
-
-        public static List<Tweet> Twittparce(string path)
+        internal static List<Tweet> Twittparce(string path)
         {
             List<Tweet> tweet = new List<Tweet>();
             string line;

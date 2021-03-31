@@ -23,10 +23,12 @@ namespace TwitterTrends
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {        
+    {
         private const string JSON_PATH = @"../../../DataObjects/Files/states.json";
         private const string SENTIMENTS_PATH = @"../../../DataObjects/Files/sentiments.csv";
+        private const string DEFAULT_TWEETS_PATH = @"../../../DataObjects/Files/Tweets/football_tweets2014.txt";
         Map map = Map.getInstance();
+        static Service service = new Service();
 
 
         public MainWindow()
@@ -34,9 +36,7 @@ namespace TwitterTrends
             InitializeComponent();
             FormWindow();
             FormMap();
-            HashSet<string> hashset = new HashSet<string>();
-            var hashtable = SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset);
-            new Searching(map.CurrentTweets, hashtable, hashset);
+            service.AnalizeTweets(DEFAULT_TWEETS_PATH);
             DrawMap();
         }
 
@@ -56,7 +56,7 @@ namespace TwitterTrends
         //    map.CurrentTwitts = twitts;
         //    DrawMap();
         //}    
-        
+
         public void DrawMap()
         {
             DrawStates();
@@ -64,24 +64,24 @@ namespace TwitterTrends
         }
         public void DrawStates()
         {
-            map.PaintStates();
-            foreach (var state in map.CurrentStates)
-            {                               
+            service.PaintStates();
+            foreach (var state in service.GetStates())
+            {
                 foreach (var polygon in state.Polygons)
                 {
                     System.Windows.Shapes.Polygon currentPolygon = new System.Windows.Shapes.Polygon();
                     foreach (var coordinate in polygon.Coordinates)
                     {
-                        currentPolygon.Points.Add(new Point(coordinate.Y * map.YCOMPRESSION + map.YOFFSET, coordinate.X * map.XCOMPRESSION + map.XOFFSET));                                                
-                    }                   
+                        currentPolygon.Points.Add(new Point(coordinate.Y * map.YCOMPRESSION + map.YOFFSET, coordinate.X * map.XCOMPRESSION + map.XOFFSET));
+                    }
                     currentPolygon.Stroke = Brushes.Black;
                     currentPolygon.StrokeThickness = 0.4;
                     currentPolygon.Fill = state.Color;
                     currentPolygon.Name = state.StateId;
                     currentPolygon.MouseEnter += CurrentPolygon_MouseEnter;
-                    gridMap.Children.Add(currentPolygon);                    
-                }                
-            }            
+                    gridMap.Children.Add(currentPolygon);
+                }
+            }
         }
 
         private void CurrentPolygon_MouseEnter(object sender, MouseEventArgs e)
@@ -95,19 +95,19 @@ namespace TwitterTrends
 
         public void DrawTweets()
         {
-            map.PaintTweets();
-            foreach(var t  in map.CurrentTweets)
+            service.PaintTweets();
+            foreach (var tweet in service.GetTweets())
             {
                 System.Windows.Shapes.Polygon polygon = new System.Windows.Shapes.Polygon();
-                if (t.Weight == null)
+                if (tweet.Weight == null)
                     continue;
-                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET+2, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET+ 2));
-                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET+ 2, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET- 2));
-                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET- 2, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET- 2));
-                polygon.Points.Add(new Point(t.TwittCoordinate.Y*map.YCOMPRESSION+ map.YOFFSET- 2, t.TwittCoordinate.X * map.XCOMPRESSION+map.XOFFSET+ 2));
+                polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET + 2, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET + 2));
+                polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET + 2, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET - 2));
+                polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET - 2, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET - 2));
+                polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET - 2, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET + 2));
                 polygon.Stroke = Brushes.Black;
                 polygon.StrokeThickness = 0.1;
-                polygon.Fill = t.Color;
+                polygon.Fill = tweet.Color;
                 gridMap.Children.Add(polygon);
             }
         }
@@ -120,8 +120,8 @@ namespace TwitterTrends
 
 
             if (e.Delta > 0)
-            {         
-                
+            {
+
                 stMap.ScaleX += 0.2;
                 stMap.ScaleY += 0.2;
             }
@@ -136,12 +136,7 @@ namespace TwitterTrends
         }
         private void FormMap()
         {
-            map.CurrentStates= JsonParser.ParseStates(JSON_PATH);
-            map.YCOMPRESSION = 14;
-            map.XCOMPRESSION = -20;
-            map.YOFFSET = 2500;
-            map.XOFFSET = 1500;
-            map.CurrentTweets = Tweetparcer.Twittparce(@"../../../DataObjects/Files/Tweets/football_tweets2014.txt");
+            service.FormMap(JSON_PATH, 14, -20, 2500, 1500);
         }
         private void FormWindow()
         {
@@ -150,8 +145,8 @@ namespace TwitterTrends
         }
         private void FormTreeView()
         {
-            var TweetFiles = Directory.GetFiles(@"../../../DataObjects/Files/Tweets");    
-            foreach(var file in TweetFiles)
+            var TweetFiles = Directory.GetFiles(@"../../../DataObjects/Files/Tweets");
+            foreach (var file in TweetFiles)
             {
                 TreeViewItem new_item = new TreeViewItem();
                 new_item.Header = file;
@@ -166,7 +161,7 @@ namespace TwitterTrends
                 Title = "Choose image",
                 Filter = "TXT|*.txt;",
             };
-            if(ofd.ShowDialog() == true)
+            if (ofd.ShowDialog() == true)
             {
                 File.Copy(ofd.FileName, @"../../../DataObjects/Files/Tweets/" + ofd.SafeFileName);
                 TreeViewItem new_item = new TreeViewItem();
@@ -181,10 +176,7 @@ namespace TwitterTrends
             TreeViewItem selectedItem = (TreeViewItem)tvFiles.SelectedItem;
             new_filename = selectedItem.Header.ToString();
             gridMap.Children.Clear();
-            HashSet<string> hashset = new HashSet<string>();
-            List<Tweet> twitts = Tweetparcer.Twittparce(new_filename);
-            new Searching(twitts, SantimentsParser.ParseWords(SENTIMENTS_PATH, ref hashset), hashset);
-            map.CurrentTweets = twitts;
+            service.AnalizeTweets(new_filename);
             DrawMap();
         }
     }

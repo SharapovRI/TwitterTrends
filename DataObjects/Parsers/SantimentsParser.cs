@@ -10,7 +10,7 @@ namespace TwitterTrends.Parsers
 {
     public static class SantimentsParser
     {
-        public static Hashtable ParseWords(string filePath, ref HashSet<string> hashset)
+        internal static Hashtable ParseWords(string filePath, ref HashSet<string> hashset)
         {
             Hashtable mainHashtable = new Hashtable();
             string line;

@@ -18,6 +18,7 @@ namespace TwitterTrends.Models
             return instance;
         }
 
+
         public List<State> CurrentStates 
         {
             get
@@ -49,8 +50,7 @@ namespace TwitterTrends.Models
         public float XCOMPRESSION;
         public float YOFFSET;
         public float XOFFSET;        
-        
-        
+               
 
 
         //метод который будт считать настроянния всех штатаов и расскрашивать их(либо могу сделать отдельный метод, который считает и отдельный который разукрашивает, я думаю это будет правильней)

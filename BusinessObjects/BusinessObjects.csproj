@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analize\Searching.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\Map.cs" />

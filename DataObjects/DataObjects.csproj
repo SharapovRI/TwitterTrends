@@ -45,8 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Analize\Searching.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="DataDao.cs" />
+    <Compile Include="IDataDao.cs" />
     <Compile Include="Parsers\JsonParser.cs" />
     <Compile Include="Parsers\SantimentsParser.cs" />
     <Compile Include="Parsers\TweetParser.cs" />
