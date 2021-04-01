@@ -80,16 +80,7 @@ namespace TwitterTrends
                     currentPolygon.ToolTip = state.StateId;                     
                     gridMap.Children.Add(currentPolygon);
                 }
-            }
-            gridMap.Children.Add(new TextBlock());
-        }
-        private void CurrentPolygon_MouseEnter(object sender, MouseEventArgs e)
-        {
-            /*Point point = Mouse.GetPosition((System.Windows.Shapes.Polygon)sender);
-            float Y = (Convert.ToSingle(point.X) - map.YOFFSET) / map.YCOMPRESSION;
-            float X = (Convert.ToSingle(point.Y) - map.XOFFSET) / map.XCOMPRESSION;
-            string state = StateChecker.GetState(new Coordinate(X, Y));*/
-            ((System.Windows.Shapes.Polygon)sender).ToolTip = ((System.Windows.Shapes.Polygon)sender).Name;
+            }            
         }
         public void DrawTweets()
         {
