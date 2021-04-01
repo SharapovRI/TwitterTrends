@@ -10,7 +10,7 @@
         <StackPanel Orientation="Vertical">
             
         <Label FontSize="32">Developers team</Label>
-        <Button Height="87" Click="Button_Click">Back</Button>
+            <Button Height="87" Click="Button_Click" Content="Back" HorizontalContentAlignment="Center"></Button>
         </StackPanel>
     </Grid>
 </UserControl>

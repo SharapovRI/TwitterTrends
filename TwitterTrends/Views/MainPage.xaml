@@ -19,7 +19,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" ClipToBounds="True">
-                <Grid Width="10" HorizontalAlignment="Left" Background="White" Panel.ZIndex="1">
+                <Grid Width="10" HorizontalAlignment="Left" Background="Black" Panel.ZIndex="1">
                     <Grid.Style>
                         <Style TargetType="{x:Type Grid}">
                             <Style.Triggers>
@@ -49,14 +49,14 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Vertical" Margin ="10,0,0,0">
-                        <TextBlock x:Name="Choose_File" Text="{x:Static res:Resources.Choose_File}" FontSize="16" />
+                        <TextBlock x:Name="Choose_File" Text="{x:Static res:Resources.Choose_File}" FontSize="18" Height="40" />
                         <ComboBox x:Name="cbFiles" Width="150" HorizontalAlignment="Left" Margin ="0,0,0,10"/>
-                        <Button x:Name="btnNewFile" FontSize="16" Width="150" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Content="{x:Static res:Resources.btnNewFile}"   Click="btnNewFile_Click"/>
+                        <Button x:Name="btnNewFile" FontSize="16" Width="150" HorizontalAlignment="Left" Margin="0, 20, 0, 0" HorizontalContentAlignment="Center" Content="{x:Static res:Resources.btnNewFile}"   Click="btnNewFile_Click"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom" Margin ="10,0,0,0">
-                        <StackPanel Orientation="Vertical" Margin="0,0,0,60" Height="60">
+                        <StackPanel Orientation="Vertical" Margin="0,0,0,60" Height="80">
                             <TextBlock x:Name="Language"  Text="{x:Static res:Resources.Language}" FontSize="20"/>
-                            <ComboBox x:Name="LanList" Margin="0,10,50,0" Height="20" VerticalAlignment="Center" SelectionChanged="LanList_SelectionChanged">
+                            <ComboBox x:Name="LanList" Margin="0,10,50,0" Height="30" VerticalAlignment="Center" SelectionChanged="LanList_SelectionChanged">
                                 <ComboBoxItem Content="RU"/>
                                 <ComboBoxItem Content="EN"/>
                                 <ComboBoxItem Content="GR"/>
@@ -64,13 +64,12 @@
                                 <ComboBoxItem Content="SP"/>
                             </ComboBox>
                         </StackPanel>
-                        <Button x:Name="About"  Width="150" Content="{x:Static res:Resources.About}"  FontSize="16" Click="About_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="0,0,0,10"/>
-                        <Button x:Name="btnExit"  Width="150" Content="{x:Static res:Resources.btnExit}"  FontSize="16" Click="btnExit_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                        <Button x:Name="About"  Width="150" Content="{x:Static res:Resources.About}"  FontSize="16" Click="About_Click" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                        <Button x:Name="btnExit"  Width="150" Content="{x:Static res:Resources.btnExit}"  FontSize="16" Click="btnExit_Click" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,10"/>
                     </StackPanel>
                 </Grid>
                 <Viewbox Stretch="Uniform" Margin="0,0,0,10" x:Name="ZoomViewbox" >
                     <Grid x:Name="gridMap" MouseWheel="ZoomViewbox_MouseWheel">
-                        <TextBlock />
                         <Grid.RenderTransform>
                             <ScaleTransform x:Name="stMap" ScaleX="1" ScaleY="1" />
                         </Grid.RenderTransform>

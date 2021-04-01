@@ -8,6 +8,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Background="#56B5FF" >
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource ControlForegroundWhite}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}"/>
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle}"/>
+    </Window.Resources>
 
     <ContentPresenter x:Name="presenter">
         
