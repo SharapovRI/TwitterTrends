@@ -25,10 +25,6 @@ namespace TwitterTrends.Models
         public string StateId;
         public float? Weight;
         public Brush Color;
-        /*async private void GetIdStateAsync(Coordinate coordinates)
-        {
-            Action action;
-            await Task.Run(() => Dispatcher.CurrentDispatcher.Invoke(action = () => idState = Map.GetState((Coordinate)coordinates)));
-        }*/
+        public int Id;
     }
 }

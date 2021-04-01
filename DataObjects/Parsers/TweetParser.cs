@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using BusinessObjects;
 using TwitterTrends.Models;
 
 namespace TwitterTrends.Parsers
@@ -18,6 +13,7 @@ namespace TwitterTrends.Parsers
             string line;
             using (StreamReader reader = new StreamReader(path, true))
             {
+                int twittId = 1;
                 while ((line = reader.ReadLine()) != null)
                 {
                     var fourParts = line.Split('\t');
@@ -31,7 +27,7 @@ namespace TwitterTrends.Parsers
                     if (latlong.Length == 2)
                     {
                         Coordinate coordinate1 = new Coordinate(Convert.ToSingle(latlong[0].Replace('.', ',')), Convert.ToSingle(latlong[1].Replace('.', ',')));
-                        tweet.Add(new Tweet(coordinate1, Convert.ToDateTime(fourParts[2]), fourParts[3]));
+                        tweet.Add(new Tweet(coordinate1, Convert.ToDateTime(fourParts[2]), fourParts[3]) { Id = twittId++});
                     }
                 }
             }

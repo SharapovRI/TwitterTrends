@@ -26,8 +26,8 @@ namespace TwitterTrends
     {
         private const string JSON_PATH = @"../../../DataObjects/Files/states.json";
         private const string SENTIMENTS_PATH = @"../../../DataObjects/Files/sentiments.csv";
-        private const string DEFAULT_TWEETS_PATH = @"../../../DataObjects/Files/Tweets/football_tweets2014.txt";
-        Map map = Map.getInstance();
+        private const string DEFAULT_TWEETS_PATH = @"../../../DataObjects/Files/Tweets/cali_tweets2014.txt";
+        Map map = Map.GetInstance();
         static Service service = new Service();
 
 
@@ -35,8 +35,7 @@ namespace TwitterTrends
         {
             InitializeComponent();
             FormWindow();
-            FormMap();
-            service.AnalizeTweets(DEFAULT_TWEETS_PATH);
+            FormMap();            
             DrawMap();
         }
 
@@ -80,9 +79,8 @@ namespace TwitterTrends
                     currentPolygon.ToolTip = state.StateId;
                     gridMap.Children.Add(currentPolygon);
                 }
-            }
+            }            
         }
-
         public void DrawTweets()
         {
             service.PaintTweets();
@@ -96,10 +94,10 @@ namespace TwitterTrends
                 polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET - 2, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET - 2));
                 polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET - 2, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET + 2));
                 polygon.Fill = tweet.Color;
+                polygon.ToolTip = "Text: " + tweet.Text + "\n" + "Weight: " + tweet.Weight + "\n" + "State: " + tweet.StateId;                
                 gridMap.Children.Add(polygon);
             }
         }
-
         private void ZoomViewbox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
             var position = e.GetPosition(gridMap);
@@ -129,18 +127,25 @@ namespace TwitterTrends
         private void FormWindow()
         {
             this.WindowState = WindowState.Maximized;
-            FormTreeView();
+            FormComboBox();
         }
-        private void FormTreeView()
+        private void FormComboBox()
         {
             var TweetFiles = Directory.GetFiles(@"../../../DataObjects/Files/Tweets");
+
             foreach (var file in TweetFiles)
             {
-                TreeViewItem new_item = new TreeViewItem();
-                new_item.Header = file;
-                tviChooseFile.Items.Add(new_item);
-                new_item.Selected += Item_Selected;
+                ComboBoxItem comboBoxItem = new ComboBoxItem();
+                comboBoxItem.Content = file.Replace(@"../../../DataObjects/Files/Tweets\", "");
+                comboBoxItem.Selected += ComboBoxItem_Selected;
+                cbFiles.Items.Add(comboBoxItem);                
             }
+        }
+        private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
+        {            
+            gridMap.Children.Clear();
+            service.AnalizeTweets(@"../../../DataObjects/Files/Tweets\" +((ComboBoxItem)sender).Content.ToString());
+            DrawMap();
         }
         private void btnNewFile_Click(object sender, RoutedEventArgs e)
         {
@@ -152,20 +157,11 @@ namespace TwitterTrends
             if (ofd.ShowDialog() == true)
             {
                 File.Copy(ofd.FileName, @"../../../DataObjects/Files/Tweets/" + ofd.SafeFileName);
-                TreeViewItem new_item = new TreeViewItem();
-                new_item.Header = ofd.SafeFileName;
-                tviChooseFile.Items.Add(new_item);
+                ComboBoxItem new_item = new ComboBoxItem();
+                new_item.Content= ofd.SafeFileName;
+                new_item.Selected += ComboBoxItem_Selected;
+                cbFiles.Items.Add(new_item);
             }
-        }
-
-        private void Item_Selected(object sender, RoutedEventArgs e)
-        {
-            string new_filename;
-            TreeViewItem selectedItem = (TreeViewItem)tvFiles.SelectedItem;
-            new_filename = selectedItem.Header.ToString();
-            gridMap.Children.Clear();
-            service.AnalizeTweets(new_filename);
-            DrawMap();
-        }
+        }        
     }
 }

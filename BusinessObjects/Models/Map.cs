@@ -11,14 +11,12 @@ namespace TwitterTrends.Models
     public class Map
     {
         private static Map instance;
-        public static Map getInstance()
+        public static Map GetInstance()
         {
             if (instance == null)
                 instance = new Map();
             return instance;
         }
-
-
         public List<State> CurrentStates 
         {
             get
@@ -49,9 +47,7 @@ namespace TwitterTrends.Models
         public float YCOMPRESSION;
         public float XCOMPRESSION;
         public float YOFFSET;
-        public float XOFFSET;        
-               
-
+        public float XOFFSET;                      
 
         //метод который будт считать настроянния всех штатаов и расскрашивать их(либо могу сделать отдельный метод, который считает и отдельный который разукрашивает, я думаю это будет правильней)
         //это пишет Дима
@@ -61,40 +57,9 @@ namespace TwitterTrends.Models
             float? mostPositive = currentTweets.Max(t=>t.Weight);
             foreach(var tweet in currentTweets)
             {
-                tweet.Color = GetTweetColor(tweet.Weight, mostNegative, mostPositive);
+                tweet.Color = GetColor(tweet.Weight/*, mostNegative, mostPositive*/);
             }
-        }
-        private Brush GetTweetColor(float? tweetMood, float? mosNegative, float? mostPositive)
-        {
-            if (tweetMood == null)
-            {
-                return Brushes.Gray;
-            }
-            else if (tweetMood == 0)
-            {
-                return Brushes.White;
-            }
-            else if (tweetMood > 0 && tweetMood < mostPositive / 2)
-            {
-                float rgbValue = (float)(255 - (float)(tweetMood / 2 * 255 / mostPositive));
-                return new SolidColorBrush(Color.FromRgb(255, 255, (byte)rgbValue));
-            }
-            else if (tweetMood >= mostPositive / 2)
-            {
-                float rgbValue = (float)(255 - (float)(tweetMood * 255 / mostPositive));
-                return new SolidColorBrush(Color.FromRgb(255, (byte)rgbValue, 0));
-            }
-            else if (tweetMood < 0 && tweetMood > mosNegative / 2)
-            {
-                float rgbValue = (float)(255 - (-1) * (float)(tweetMood / 2 * 255 / mosNegative));
-                return new SolidColorBrush(Color.FromRgb((byte)rgbValue, 255, 255));
-            }
-            else
-            {
-                float rgbValue = (float)(255 - (-1) * (float)(tweetMood * 255 / mosNegative));
-                return new SolidColorBrush(Color.FromRgb(0, (byte)rgbValue, 255));
-            }
-        }
+        }        
         public Dictionary<string, float?> CalculateStatesMood()
         {            
             Dictionary<string, float?> statesMood = new Dictionary<string, float?>();            
@@ -127,7 +92,7 @@ namespace TwitterTrends.Models
 
             for (int i = 0; i < CurrentStates.Count(); i++)
             {
-                PaitPolygons(CurrentStates[i], GetStateColor(CurrentStates[i].weight, mostNegative, mostPositive));
+                PaitPolygons(CurrentStates[i], GetColor(CurrentStates[i].weight/*, mostNegative, mostPositive*/));
             }
         }
         private void PaitPolygons(State state, Brush brush)
@@ -135,6 +100,81 @@ namespace TwitterTrends.Models
             for (int i = 0; i < state.Polygons.Count; i++)
             {
                 state.Color = brush;
+            }
+        }
+
+        private Brush GetColor(float? mood)
+        {
+            float border = 1;
+            float middleBorder = border / 2;
+            if (mood == null)
+            {
+                return Brushes.Gray;
+            }
+            else if (mood == 0)
+            {
+                return Brushes.White;
+            }
+            else if (mood > 0 && mood < middleBorder)
+            {
+                byte val = (byte)(255 - mood * 255 / middleBorder);
+                return new SolidColorBrush(Color.FromRgb(255, 255, val));
+            }
+            else if (mood >= middleBorder && mood < border)
+            {
+                byte val = (byte)(255 - mood * 255 / border);                
+                return new SolidColorBrush(Color.FromRgb(255, val, 0));
+            }
+            else if (mood >= border)
+            {
+                return Brushes.Red;
+            }
+            else if (mood < 0 && mood > - middleBorder)
+            {
+                byte val = (byte)(255 - (-1)*mood * 255 / middleBorder);
+                return new SolidColorBrush(Color.FromRgb(val, 255, 255));
+            }
+            else if (mood <= -middleBorder && mood > -border)
+            {
+                byte val = (byte)(255 - (-1)*mood * 255 / middleBorder);               
+                return new SolidColorBrush(Color.FromRgb(0, val, 255));
+            }
+            else
+            {
+                return Brushes.Blue;
+            }
+        }
+
+        //архивыне методы
+        private Brush GetTweetColor(float? tweetMood, float? mosNegative, float? mostPositive)
+        {
+            if (tweetMood == null)
+            {
+                return Brushes.Gray;
+            }
+            else if (tweetMood == 0)
+            {
+                return Brushes.White;
+            }
+            else if (tweetMood > 0 && tweetMood < mostPositive / 2)
+            {
+                float rgbValue = (float)(255 - (float)(tweetMood / 2 * 255 / mostPositive));
+                return new SolidColorBrush(Color.FromRgb(255, 255, (byte)rgbValue));
+            }
+            else if (tweetMood >= mostPositive / 2)
+            {
+                float rgbValue = (float)(255 - (float)(tweetMood * 255 / mostPositive));
+                return new SolidColorBrush(Color.FromRgb(255, (byte)rgbValue, 0));
+            }
+            else if (tweetMood < 0 && tweetMood > mosNegative / 2)
+            {
+                float rgbValue = (float)(255 - (-1) * (float)(tweetMood / 2 * 255 / mosNegative));
+                return new SolidColorBrush(Color.FromRgb((byte)rgbValue, 255, 255));
+            }
+            else
+            {
+                float rgbValue = (float)(255 - (-1) * (float)(tweetMood * 255 / mosNegative));
+                return new SolidColorBrush(Color.FromRgb(0, (byte)rgbValue, 255));
             }
         }
         private Brush GetStateColor(float? stateMood, float? mosNegative, float? mostPositive)
