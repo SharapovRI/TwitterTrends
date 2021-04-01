@@ -49,9 +49,7 @@ namespace TwitterTrends.Models
         public float YCOMPRESSION;
         public float XCOMPRESSION;
         public float YOFFSET;
-        public float XOFFSET;        
-               
-
+        public float XOFFSET;                      
 
         //метод который будт считать настроянния всех штатаов и расскрашивать их(либо могу сделать отдельный метод, который считает и отдельный который разукрашивает, я думаю это будет правильней)
         //это пишет Дима
