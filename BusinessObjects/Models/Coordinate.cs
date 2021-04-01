@@ -10,37 +10,10 @@ namespace TwitterTrends.Models
     {
         public Coordinate(float x, float y)
         {
-            this.x = x;
-            this.y = y;
+            X = x;
+            Y = y;
         }
-        private float x;
-        private float y;
-
-        public float X
-        {
-            get
-            {
-                return x;
-            }
-            set
-            {
-                if (value > 90 || value < -90)
-                    //throw new ArgumentOutOfRangeException("Неверное значение широты");
-                x = value;
-            }
-        }
-        public float Y
-        {
-            get
-            {
-                return y;
-            }
-            set
-            {
-                if (value > 180 || value < -180)
-                    //throw new ArgumentOutOfRangeException("Неверное значение долготы");
-                y = value;
-            }
-        }
+        public float X;
+        public float Y;                
     }
 }

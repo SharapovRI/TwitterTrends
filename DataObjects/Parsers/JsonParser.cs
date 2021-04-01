@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using TwitterTrends.Models;
@@ -23,10 +24,10 @@ namespace TwitterTrends.Parsers
                 state.StateId = st.Key;
                 foreach (var polygonsList in st.Value)
                 {
-                    foreach (var plgn in polygonsList)
+                    for(int i = 0; i < ((ICollection)polygonsList).Count; i++) 
                     {
                         Polygon polygon = new Polygon(state.StateId);
-                        foreach (var crdn in plgn)
+                        foreach (var crdn in polygonsList[i])
                         {
                             float y = float.Parse(crdn.First.ToString().Replace('.', ','));
                             float x = float.Parse(crdn.Last.ToString().Replace('.', ','));
