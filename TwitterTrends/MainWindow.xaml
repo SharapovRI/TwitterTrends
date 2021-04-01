@@ -10,14 +10,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="#fff"/>
-        <StackPanel Height="25" Orientation="Horizontal" Margin="3,0,0,0">
-            <Button x:Name="btnNewFile" Width="50" Content="Add File" Background="White" BorderBrush="White" Click="btnNewFile_Click"/>
-        </StackPanel>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -30,7 +25,7 @@
                                     <EventTrigger.Actions>
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="Width" To="340"/>
+                                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="Width" To="165"/>
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </EventTrigger.Actions>
@@ -51,13 +46,25 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TreeView x:Name="tvFiles" Margin="2,0,0,0" Width="320" Grid.Row="0" BorderBrush="White" HorizontalAlignment="Left" >
-                        <TreeViewItem x:Name="tviChooseFile" Header="Choose File" FontSize="14">
-                        </TreeViewItem>
-                    </TreeView>
-                    <Grid x:Name="gTweet" Grid.Row="1" Background="red">
-
-                    </Grid>
+                    <StackPanel Grid.Row="0" Orientation="Vertical" Margin ="10,0,0,0">
+                        <TextBlock Text="Choose file:" FontSize="20" />
+                        <ComboBox x:Name="cbFiles" Width="150" HorizontalAlignment="Left" Margin ="0,0,0,10"/>
+                        <Button x:Name="btnNewFile" FontSize="20" Width="150" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Content="Add File"   Click="btnNewFile_Click"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom" Margin ="10,0,0,0">
+                        <StackPanel Orientation="Horizontal" Margin="10,0,0,10">
+                            <TextBlock  Text="Language:" FontSize="20"/>
+                            <ComboBox Margin="10,0,0,0" Width="40" Height="20" VerticalAlignment="Center">
+                                <ComboBoxItem Content="RU"/>
+                                <ComboBoxItem Content="EN"/>
+                                <ComboBoxItem Content="GR"/>
+                                <ComboBoxItem Content="FR"/>
+                                <ComboBoxItem Content="SP"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <Button  Width="150" Content="About Us"  FontSize="20" Click="btnNewFile_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                        <Button x:Name="btnExit"  Width="150" Content="Exit"  FontSize="20" Click="btnNewFile_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                    </StackPanel>
                 </Grid>
                 <Viewbox Stretch="Uniform" Margin="0,0,0,10" x:Name="ZoomViewbox" >
                     <Grid x:Name="gridMap" MouseWheel="ZoomViewbox_MouseWheel">

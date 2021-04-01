@@ -127,7 +127,7 @@ namespace TwitterTrends.Models
 
             for (int i = 0; i < CurrentStates.Count(); i++)
             {
-                PaitPolygons(CurrentStates[i], GetStateColor(CurrentStates[i].weight, mostNegative, mostPositive));
+                PaitPolygons(CurrentStates[i], TestGetStateColor(CurrentStates[i].weight/*, mostNegative, mostPositive*/));
             }
         }
         private void PaitPolygons(State state, Brush brush)
@@ -135,6 +135,47 @@ namespace TwitterTrends.Models
             for (int i = 0; i < state.Polygons.Count; i++)
             {
                 state.Color = brush;
+            }
+        }
+
+        private Brush TestGetStateColor(float? stateMood)
+        {
+            float border = (float)1;
+            if (stateMood == null)
+            {
+                return Brushes.Gray;
+            }
+            else if (stateMood == 0)
+            {
+                return Brushes.White;
+            }
+            else if (stateMood > 0 && stateMood < border / 2)
+            {
+                byte rgbValue = (byte)(255 - (1.25 * 255 / (float)stateMood));
+                return new SolidColorBrush(Color.FromRgb(255, 255, rgbValue));
+            }
+            else if (stateMood >= border / 2 && stateMood < border)
+            {
+                byte rgbValue = (byte)(255 - ((stateMood - 1.25) * 255 / (float)stateMood));
+                return new SolidColorBrush(Color.FromRgb(255, rgbValue, 0));
+            }
+            else if (stateMood >= border)
+            {
+                return Brushes.Red;
+            }
+            else if (stateMood < 0 && stateMood > -border / 2)
+            {
+                byte rgbValue = (byte)(255 - (1.25 * 255 / (float)stateMood));
+                return new SolidColorBrush(Color.FromRgb(rgbValue, 255, 255));
+            }
+            else if (stateMood <= -border / 2 && stateMood > -border)
+            {
+                byte rgbValue = (byte)(255 - ((stateMood - 1.25) * 255 / (float)stateMood));
+                return new SolidColorBrush(Color.FromRgb(0, rgbValue, 255));
+            }
+            else
+            {
+                return Brushes.Blue;
             }
         }
         private Brush GetStateColor(float? stateMood, float? mosNegative, float? mostPositive)

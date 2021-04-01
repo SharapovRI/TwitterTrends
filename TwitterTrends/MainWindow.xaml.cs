@@ -78,10 +78,11 @@ namespace TwitterTrends
                     currentPolygon.StrokeThickness = 0.4;
                     currentPolygon.Fill = state.Color;
                     currentPolygon.Name = state.StateId;
-                    currentPolygon.MouseEnter += CurrentPolygon_MouseEnter;
+                    currentPolygon.ToolTip = state.StateId;                     
                     gridMap.Children.Add(currentPolygon);
                 }
             }
+            gridMap.Children.Add(new TextBlock());
         }
 
         private void CurrentPolygon_MouseEnter(object sender, MouseEventArgs e)
@@ -141,18 +142,25 @@ namespace TwitterTrends
         private void FormWindow()
         {
             this.WindowState = WindowState.Maximized;
-            FormTreeView();
+            FormComboBox();
         }
-        private void FormTreeView()
+        private void FormComboBox()
         {
             var TweetFiles = Directory.GetFiles(@"../../../DataObjects/Files/Tweets");
+
             foreach (var file in TweetFiles)
             {
-                TreeViewItem new_item = new TreeViewItem();
-                new_item.Header = file;
-                tviChooseFile.Items.Add(new_item);
-                new_item.Selected += Item_Selected;
+                ComboBoxItem comboBoxItem = new ComboBoxItem();
+                comboBoxItem.Content = file.Replace(@"../../../DataObjects/Files/Tweets\", "");
+                comboBoxItem.Selected += ComboBoxItem_Selected;
+                cbFiles.Items.Add(comboBoxItem);                
             }
+        }
+        private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
+        {            
+            gridMap.Children.Clear();
+            service.AnalizeTweets(@"../../../DataObjects/Files/Tweets\" +((ComboBoxItem)sender).Content.ToString());
+            DrawMap();
         }
         private void btnNewFile_Click(object sender, RoutedEventArgs e)
         {
@@ -164,20 +172,11 @@ namespace TwitterTrends
             if (ofd.ShowDialog() == true)
             {
                 File.Copy(ofd.FileName, @"../../../DataObjects/Files/Tweets/" + ofd.SafeFileName);
-                TreeViewItem new_item = new TreeViewItem();
-                new_item.Header = ofd.SafeFileName;
-                tviChooseFile.Items.Add(new_item);
+                ComboBoxItem new_item = new ComboBoxItem();
+                new_item.Content= ofd.SafeFileName;
+                new_item.Selected += ComboBoxItem_Selected;
+                cbFiles.Items.Add(new_item);
             }
-        }
-
-        private void Item_Selected(object sender, RoutedEventArgs e)
-        {
-            string new_filename;
-            TreeViewItem selectedItem = (TreeViewItem)tvFiles.SelectedItem;
-            new_filename = selectedItem.Header.ToString();
-            gridMap.Children.Clear();
-            service.AnalizeTweets(new_filename);
-            DrawMap();
-        }
+        }        
     }
 }
