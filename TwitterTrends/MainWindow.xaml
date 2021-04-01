@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TwitterTrends"
+        xmlns:res="clr-namespace:TwitterTrends.Properties"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Background="#56B5FF" >
@@ -25,7 +26,7 @@
                                     <EventTrigger.Actions>
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="Width" To="165"/>
+                                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="Width" To="185"/>
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </EventTrigger.Actions>
@@ -47,14 +48,14 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Vertical" Margin ="10,0,0,0">
-                        <TextBlock Text="Choose file:" FontSize="20" />
+                        <TextBlock x:Name="Choose_File" Text="{x:Static res:Resources.Choose_File}" FontSize="16" />
                         <ComboBox x:Name="cbFiles" Width="150" HorizontalAlignment="Left" Margin ="0,0,0,10"/>
-                        <Button x:Name="btnNewFile" FontSize="20" Width="150" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Content="Add File"   Click="btnNewFile_Click"/>
+                        <Button x:Name="btnNewFile" FontSize="16" Width="150" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Content="{x:Static res:Resources.btnNewFile}"   Click="btnNewFile_Click"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom" Margin ="10,0,0,0">
-                        <StackPanel Orientation="Horizontal" Margin="10,0,0,10">
-                            <TextBlock  Text="Language:" FontSize="20"/>
-                            <ComboBox Margin="10,0,0,0" Width="40" Height="20" VerticalAlignment="Center">
+                        <StackPanel Orientation="Vertical" Margin="0,0,0,60" Height="60">
+                            <TextBlock x:Name="Language"  Text="{x:Static res:Resources.Language}" FontSize="20"/>
+                            <ComboBox x:Name="LanList" Margin="0,10,50,0" Height="20" VerticalAlignment="Center" SelectionChanged="LanList_SelectionChanged">
                                 <ComboBoxItem Content="RU"/>
                                 <ComboBoxItem Content="EN"/>
                                 <ComboBoxItem Content="GR"/>
@@ -62,8 +63,8 @@
                                 <ComboBoxItem Content="SP"/>
                             </ComboBox>
                         </StackPanel>
-                        <Button  Width="150" Content="About Us"  FontSize="20" Click="btnNewFile_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="0,0,0,10"/>
-                        <Button x:Name="btnExit"  Width="150" Content="Exit"  FontSize="20" Click="btnNewFile_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                        <Button x:Name="About"  Width="150" Content="{x:Static res:Resources.About}"  FontSize="16" Click="btnNewFile_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+                        <Button x:Name="btnExit"  Width="150" Content="{x:Static res:Resources.btnExit}"  FontSize="16" Click="btnExit_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="0,0,0,10"/>
                     </StackPanel>
                 </Grid>
                 <Viewbox Stretch="Uniform" Margin="0,0,0,10" x:Name="ZoomViewbox" >

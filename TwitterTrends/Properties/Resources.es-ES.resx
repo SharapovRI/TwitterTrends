@@ -118,23 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>About us</value>
+    <value>Acerca de nosotros</value>
     <comment>Переход на страницу с инфо о команде разработчиков</comment>
   </data>
   <data name="btnExit" xml:space="preserve">
-    <value>Exit</value>
+    <value>Salida</value>
     <comment>Выход</comment>
   </data>
   <data name="btnNewFile" xml:space="preserve">
-    <value>Add File</value>
+    <value>Añadir Archivo</value>
     <comment>Добавить файл</comment>
   </data>
   <data name="Choose_File" xml:space="preserve">
-    <value>Choose file:</value>
+    <value>Elegir archivo:</value>
     <comment>Выбор файла</comment>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language:</value>
+    <value>Idioma:</value>
     <comment>Выбор языка</comment>
   </data>
 </root>

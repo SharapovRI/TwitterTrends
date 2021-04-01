@@ -16,6 +16,10 @@ using ServiceAction;
 using BusinessObjects;
 using DataObjects;
 using TwitterTrends.Models;
+using System.Globalization;
+using System.ComponentModel;
+using TwitterTrends.Properties;
+using System.Runtime.CompilerServices;
 
 namespace TwitterTrends
 {
@@ -33,9 +37,14 @@ namespace TwitterTrends
 
         public MainWindow()
         {
+            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(Properties.Settings.Default.Language);
             InitializeComponent();
+            for (int i = 0; i <= LanList.Items.Count - 1; i++)
+                if (((ComboBoxItem)LanList.Items.GetItemAt(i)).Content.ToString() == Properties.Settings.Default.Language)
+                    LanList.SelectedIndex = i;
             FormWindow();
-            FormMap();            
+            FormMap();
             DrawMap();
         }
 
@@ -79,7 +88,7 @@ namespace TwitterTrends
                     currentPolygon.ToolTip = state.StateId;
                     gridMap.Children.Add(currentPolygon);
                 }
-            }            
+            }
         }
         public void DrawTweets()
         {
@@ -94,7 +103,7 @@ namespace TwitterTrends
                 polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET - 2, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET - 2));
                 polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET - 2, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET + 2));
                 polygon.Fill = tweet.Color;
-                polygon.ToolTip = "Text: " + tweet.Text + "\n" + "Weight: " + tweet.Weight + "\n" + "State: " + tweet.StateId;                
+                polygon.ToolTip = "Text: " + tweet.Text + "\n" + "Weight: " + tweet.Weight + "\n" + "State: " + tweet.StateId;
                 gridMap.Children.Add(polygon);
             }
         }
@@ -138,13 +147,13 @@ namespace TwitterTrends
                 ComboBoxItem comboBoxItem = new ComboBoxItem();
                 comboBoxItem.Content = file.Replace(@"../../../DataObjects/Files/Tweets\", "");
                 comboBoxItem.Selected += ComboBoxItem_Selected;
-                cbFiles.Items.Add(comboBoxItem);                
+                cbFiles.Items.Add(comboBoxItem);
             }
         }
         private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
-        {            
+        {
             gridMap.Children.Clear();
-            service.AnalizeTweets(@"../../../DataObjects/Files/Tweets\" +((ComboBoxItem)sender).Content.ToString());
+            service.AnalizeTweets(@"../../../DataObjects/Files/Tweets\" + ((ComboBoxItem)sender).Content.ToString());
             DrawMap();
         }
         private void btnNewFile_Click(object sender, RoutedEventArgs e)
@@ -158,10 +167,56 @@ namespace TwitterTrends
             {
                 File.Copy(ofd.FileName, @"../../../DataObjects/Files/Tweets/" + ofd.SafeFileName);
                 ComboBoxItem new_item = new ComboBoxItem();
-                new_item.Content= ofd.SafeFileName;
+                new_item.Content = ofd.SafeFileName;
                 new_item.Selected += ComboBoxItem_Selected;
                 cbFiles.Items.Add(new_item);
             }
-        }        
+        }
+
+        private void LanList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (((ComboBoxItem)LanList.SelectedItem).Content.ToString())
+            {
+                case "RU":
+                    {
+                        Properties.Settings.Default.Language = "ru-RU";
+                        Properties.Settings.Default.Save();
+                        break;
+                    }
+                case "EN":
+                    {
+                        Properties.Settings.Default.Language = "en-EN";
+                        Properties.Settings.Default.Save();
+                        break;
+                    }
+                case "GR":
+                    {
+                        Properties.Settings.Default.Language = "de-DE";
+                        Properties.Settings.Default.Save();
+                        break;
+                    }
+                case "FR":
+                    {
+                        Properties.Settings.Default.Language = "fr-FR";
+                        Properties.Settings.Default.Save();
+                        break;
+                    }
+                case "SP":
+                    {
+                        Properties.Settings.Default.Language = "es-ES";
+                        Properties.Settings.Default.Save();
+                        break;
+                    }
+                default:
+                    Properties.Settings.Default.Language = "en-EN";
+                    Properties.Settings.Default.Save();
+                    break;
+            }
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
