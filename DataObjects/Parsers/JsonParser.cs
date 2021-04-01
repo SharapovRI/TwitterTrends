@@ -38,17 +38,17 @@ namespace TwitterTrends.Parsers
                                 polygon.Max_lat.Y = y;
                                 polygon.Max_lat.X = x;
                             }
-                            if (polygon.Min_lat.Y > y)
+                            else if (polygon.Min_lat.Y > y)
                             {
                                 polygon.Min_lat.Y = y;
                                 polygon.Min_lat.X = x;
                             }
-                            if (polygon.Max_lng.X < x)
+                            else if (polygon.Max_lng.X < x)
                             {
                                 polygon.Max_lng.X = x;
                                 polygon.Max_lng.Y = y;
                             }
-                            if (polygon.Min_lng.X > x)
+                            else if (polygon.Min_lng.X > x)
                             {
                                 polygon.Min_lng.X = x;
                                 polygon.Min_lng.Y = y;

@@ -20,7 +20,8 @@ namespace TwitterTrends.Models
                     }
                 }
             }
-            return "UNKNOWN";
+
+            return isNearState(p);
         }
         private static float Min(float a1, float a2, float a3, float a4)
         {
@@ -28,23 +29,23 @@ namespace TwitterTrends.Models
         }
         private static string isNearState(Coordinate p)
         {
-            string res="";
+            string res="UNKNOWN";
             float distXmax = (float)Math.Sqrt(Math.Pow(p.X - Map.GetInstance().CurrentStates[0].Polygons[0].Max_lng.X, 2) + Math.Pow(p.Y - Map.GetInstance().CurrentStates[0].Polygons[0].Max_lng.Y, 2));
             float distYmax = (float)Math.Sqrt(Math.Pow(p.X - Map.GetInstance().CurrentStates[0].Polygons[0].Max_lat.X, 2) + Math.Pow(p.Y - Map.GetInstance().CurrentStates[0].Polygons[0].Max_lat.Y, 2));
             float distXmin = (float)Math.Sqrt(Math.Pow(p.X - Map.GetInstance().CurrentStates[0].Polygons[0].Min_lng.X, 2) + Math.Pow(p.Y - Map.GetInstance().CurrentStates[0].Polygons[0].Min_lng.Y, 2));
             float distYmin = (float)Math.Sqrt(Math.Pow(p.X - Map.GetInstance().CurrentStates[0].Polygons[0].Min_lat.X, 2) + Math.Pow(p.Y - Map.GetInstance().CurrentStates[0].Polygons[0].Min_lat.Y, 2));
             float min_dist = Min(distXmax,distYmax,distXmin,distYmin);
             res = Map.GetInstance().CurrentStates[0].Polygons[0].StateId;
-            
+           
             foreach (var state in Map.GetInstance().CurrentStates)
             {
                 foreach (var pol in state.Polygons)
                 {
-                    //int A = y1 - y2;
-                    //int B = x1 - x2;
-                    //int C = y1 * x2 - y2 * x1;
-                    //int H = (A * x0 + B * y0 + C) / Math.Sqrt(A * A + B * B);
-                    
+                    if(p.X== 50.01291)
+                    {
+                        int ads = 0;
+
+                    }
                     distXmax = (float)Math.Sqrt(Math.Pow(p.X - pol.Max_lng.X, 2) + Math.Pow(p.Y - pol.Max_lng.Y, 2));
                     distYmax = (float)Math.Sqrt(Math.Pow(p.X - pol.Max_lat.X, 2) + Math.Pow(p.Y - pol.Max_lat.Y, 2));
                     distXmin = (float)Math.Sqrt(Math.Pow(p.X - pol.Min_lng.X, 2) + Math.Pow(p.Y - pol.Min_lng.Y, 2));
