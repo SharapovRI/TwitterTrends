@@ -26,28 +26,31 @@ namespace TwitterTrends.Parsers
                     foreach (var plgn in polygonsList)
                     {
                         Polygon polygon = new Polygon(state.StateId);
-                        
                         foreach (var crdn in plgn)
                         {
                             float y = float.Parse(crdn.First.ToString().Replace('.', ','));
                             float x = float.Parse(crdn.Last.ToString().Replace('.', ','));
                             Coordinate coordinate = new Coordinate(x, y);
                             polygon.Coordinates.Add(coordinate);
-                            if (polygon.Max_lat < y)
+                            if (polygon.Max_lat.Y < y)
                             {
-                                polygon.Max_lat = y;
+                                polygon.Max_lat.Y = y;
+                                polygon.Max_lat.X = x;
                             }
-                            if (polygon.Min_lat > y)
+                            if (polygon.Min_lat.Y > y)
                             {
-                                polygon.Min_lat = y;
+                                polygon.Min_lat.Y = y;
+                                polygon.Min_lat.X = x;
                             }
-                            if (polygon.Max_lng < x)
+                            if (polygon.Max_lng.X < x)
                             {
-                                polygon.Max_lng = x;
+                                polygon.Max_lng.X = x;
+                                polygon.Max_lng.Y = y;
                             }
-                            if (polygon.Min_lng > x)
+                            if (polygon.Min_lng.X > x)
                             {
-                                polygon.Min_lng = x;
+                                polygon.Min_lng.X = x;
+                                polygon.Min_lng.Y = y;
                             }
 
                         }
