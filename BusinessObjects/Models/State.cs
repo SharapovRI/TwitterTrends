@@ -12,6 +12,6 @@ namespace TwitterTrends.Models
         public string StateId;
         public List<Polygon> Polygons = new List<Polygon>();
         public float? weight;
-        public Brush Color;
+        public Brush Color = Brushes.Gray;
     }
 }

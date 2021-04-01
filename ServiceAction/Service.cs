@@ -17,22 +17,18 @@ namespace ServiceAction
         {
             return Map.GetInstance().CurrentStates;
         }
-
         public List<Tweet> GetTweets()
         {
             return Map.GetInstance().CurrentTweets;
         }
-
         public void PaintStates()
         {
             Map.GetInstance().PaintStates();
         }
-
         public void PaintTweets()
         {
             Map.GetInstance().PaintTweets();
         }
-
         public void FormMap(string JSON_PATH, int YComp, int XComp, int YOffset, int XOffset)
         {
             Map map = Map.GetInstance();
@@ -41,7 +37,6 @@ namespace ServiceAction
             map.XCOMPRESSION = XComp;
             map.YOFFSET = YOffset;
             map.XOFFSET = XOffset;
-            //map.CurrentTweets = Tweetparcer.Twittparce(@"../../../DataObjects/Files/Tweets/football_tweets2014.txt");
         }
 
         public void AnalizeTweets(string TWEETS_PATH)
