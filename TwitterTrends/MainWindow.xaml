@@ -7,7 +7,10 @@
         xmlns:res="clr-namespace:TwitterTrends.Properties"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        Background="#56B5FF" >
+        Icon="Images/preview_navi.png">
+    <Window.Background>
+        <ImageBrush ImageSource="Images/background.jpg" Opacity="0.4" />
+    </Window.Background>
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="{StaticResource ControlForegroundWhite}"/>

@@ -7,10 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel Orientation="Vertical">
-            
-        <Label FontSize="32">Developers team</Label>
-            <Button Height="87" Click="Button_Click" Content="Back" HorizontalContentAlignment="Center"></Button>
-        </StackPanel>
+            <Canvas>
+
+                <Label FontSize="48" Canvas.Left="206" Canvas.Top="31">Developers team</Label>
+            <Label x:Name="Members" Content="" Canvas.Left="179" Canvas.Top="168" FontSize="32"/>
+            <Button Height="60" Click="Button_Click" Content="Back" HorizontalContentAlignment="Center" Width="100" Canvas.Left="683" Canvas.Top="374"></Button>
+            </Canvas>
     </Grid>
 </UserControl>
