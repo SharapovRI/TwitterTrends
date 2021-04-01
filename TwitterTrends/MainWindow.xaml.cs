@@ -84,7 +84,6 @@ namespace TwitterTrends
             }
             gridMap.Children.Add(new TextBlock());
         }
-
         private void CurrentPolygon_MouseEnter(object sender, MouseEventArgs e)
         {
             /*Point point = Mouse.GetPosition((System.Windows.Shapes.Polygon)sender);
@@ -93,7 +92,6 @@ namespace TwitterTrends
             string state = StateChecker.GetState(new Coordinate(X, Y));*/
             ((System.Windows.Shapes.Polygon)sender).ToolTip = ((System.Windows.Shapes.Polygon)sender).Name;
         }
-
         public void DrawTweets()
         {
             service.PaintTweets();
@@ -102,17 +100,17 @@ namespace TwitterTrends
                 System.Windows.Shapes.Polygon polygon = new System.Windows.Shapes.Polygon();
                 if (tweet.Weight == null)
                     continue;
-                polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET + 2, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET + 2));
-                polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET + 2, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET - 2));
-                polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET - 2, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET - 2));
-                polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET - 2, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET + 2));
+                polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET + 4, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET + 4));
+                polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET + 4, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET - 4));
+                polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET - 4, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET - 4));
+                polygon.Points.Add(new Point(tweet.TwittCoordinate.Y * map.YCOMPRESSION + map.YOFFSET - 4, tweet.TwittCoordinate.X * map.XCOMPRESSION + map.XOFFSET + 4));
                 polygon.Stroke = Brushes.Black;
                 polygon.StrokeThickness = 0.1;
                 polygon.Fill = tweet.Color;
+                polygon.ToolTip = "Text: " + tweet.Text + "\n" + "Weight: " + tweet.Weight + "\n" + "State: " + tweet.StateId;                
                 gridMap.Children.Add(polygon);
             }
         }
-
         private void ZoomViewbox_MouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
             var position = e.GetPosition(gridMap);
