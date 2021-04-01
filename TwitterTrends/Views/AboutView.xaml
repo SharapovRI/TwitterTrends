@@ -7,11 +7,26 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            <Canvas>
-
-                <Label FontSize="48" Canvas.Left="206" Canvas.Top="31">Developers team</Label>
-            <Label x:Name="Members" Content="" Canvas.Left="179" Canvas.Top="168" FontSize="32"/>
-            <Button Height="60" Click="Button_Click" Content="Back" HorizontalContentAlignment="Center" Width="100" Canvas.Left="683" Canvas.Top="374"></Button>
-            </Canvas>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="48" Canvas.Left="206" Canvas.Top="31">Developers team</Label>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Екатерина Иваненко" Foreground="#FFEF00" FontSize="25"/>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="Илья Авжи" Foreground="#FFEF00" FontSize="25"/>
+            <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="Юлиан Айрапетов" Foreground="#FFEF00" FontSize="25"/>
+            <TextBlock Grid.Row="3" HorizontalAlignment="Center" Text="Дмитрий Карканица" Foreground="#FFEF00" FontSize="25"/>
+            <TextBlock Grid.Row="4" HorizontalAlignment="Center" Text="Родион Шарапов" Foreground="#FFEF00" FontSize="25"/>
+        </Grid>
+        <Button Grid.Row="2" Content="Back"  Width="800" HorizontalAlignment="Center" Click="Button_Click"/>
     </Grid>
 </UserControl>

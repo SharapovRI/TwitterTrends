@@ -81,9 +81,8 @@
     </Style>
     
     <!--TextBlock-->
-    
+
     <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}" BasedOn="{x:Null}">
-        <Setter Property="Background" Value="{StaticResource ControlLightBackground}" />
         <Setter Property="Foreground" Value="{StaticResource ControlForegroundWhite}" />       
         <Setter Property="AllowDrop" Value="True"/>
         <Setter Property="Height" Value="34"/>        

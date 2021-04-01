@@ -26,12 +26,7 @@ namespace TwitterTrends.Views
         {
             this.MainWindow = mainWindow;
             this.MainPage = mainPage;
-            InitializeComponent();
-            Members.Content = "1. Авжи Илья\n" +
-                "2. Айрапетов Юлиан\n" +
-                "3. Иваненко Екатерина\n" +
-                "4. Карканица Дмитрий\n" +
-                "5. Шарапов Родион";
+            InitializeComponent();           
         }
 
         private static AboutView instance;
