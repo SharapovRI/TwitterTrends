@@ -37,7 +37,7 @@ namespace TwitterTrends
         public MainPage(MainWindow mainWindow)
         {
             this.MainWindow = mainWindow;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Properties.Settings.Default.Language);
             InitializeComponent();
             for (int i = 0; i <= LanList.Items.Count - 1; i++)
@@ -189,6 +189,8 @@ namespace TwitterTrends
                     Properties.Settings.Default.Save();
                     break;
             }
+            string message = "The language will be changed after the app is restarted.";
+            MessageBox.Show(message);
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
