@@ -127,10 +127,11 @@ namespace TwitterTrends
                 cbFiles.Items.Add(comboBoxItem);
             }
         }
-        private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
+        async private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
         {
             gridMap.Children.Clear();
-            service.AnalizeTweets(@"../../../DataObjects/Files/Tweets\" + ((ComboBoxItem)sender).Content.ToString());
+            var name = ((ComboBoxItem)sender).Content.ToString();
+            await Task.Run(() => service.AnalizeTweets(@"../../../DataObjects/Files/Tweets\" + name));
             DrawMap();
         }
         private void btnNewFile_Click(object sender, RoutedEventArgs e)
