@@ -59,7 +59,7 @@
                             <ComboBox x:Name="LanList" Margin="0,10,50,0" Height="30" VerticalAlignment="Center" SelectionChanged="LanList_SelectionChanged">
                                 <ComboBoxItem Content="RU"/>
                                 <ComboBoxItem Content="EN"/>
-                                <ComboBoxItem Content="GR"/>
+                                <ComboBoxItem Content="DE"/>
                                 <ComboBoxItem Content="FR"/>
                                 <ComboBoxItem Content="SP"/>
                             </ComboBox>

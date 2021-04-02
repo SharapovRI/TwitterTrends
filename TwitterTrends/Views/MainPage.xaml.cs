@@ -167,7 +167,7 @@ namespace TwitterTrends
                         Properties.Settings.Default.Save();
                         break;
                     }
-                case "GR":
+                case "DE":
                     {
                         Properties.Settings.Default.Language = "de-DE";
                         Properties.Settings.Default.Save();
